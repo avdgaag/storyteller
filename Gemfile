@@ -41,8 +41,11 @@ group :development, :test do
   gem "konacha"
   gem "factory_girl_rails", "~> 4.2"
   gem "rspec-rails", "~> 2.12"
-  gem "better_errors"
   gem "quiet_assets"
+end
+
+group :development do
+  gem "better_errors"
 end
 
 group :test do
@@ -50,6 +53,7 @@ group :test do
   gem "capybara", "~> 2.0"
   gem "shoulda-matchers"
   gem "capybara-webkit", "~> 0.14"
+  gem "email_spec"
 end
 
 group :assets do

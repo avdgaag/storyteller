@@ -1,7 +1,13 @@
 Storyteller::Application.routes.draw do
   devise_for :users
 
-  root to: "sessions#new"
+  authenticated :user do
+    root to: 'users#show'
+  end
+
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
