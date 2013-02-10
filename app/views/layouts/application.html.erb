@@ -18,8 +18,16 @@
       </li>
     <% end %>
 
-    <%= flash[:notice] %>
-    <%= flash[:alert] %>
+    <% if flash.any? %>
+      <div id="flash">
+        <% if flash[:notice] %>
+          <div class="notice"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert] %>
+          <div class="alert"><%= flash[:alert] %></div>
+        <% end %>
+      </div>
+    <% end %>
 
     <%= yield %>
 

@@ -40,4 +40,99 @@ describe StoriesController do
     end
   end
 
+  describe 'GET "edit"' do
+    let(:story) { double }
+
+    before do
+      Story.stub!(:find).and_return(story)
+      get :edit, id: '1'
+    end
+
+    describe 'routing' do
+      it { expect(get: '/stories/1/edit').to route_to('stories#edit', id: '1') }
+      it { expect(edit_story_path('1')).to eql('/stories/1/edit') }
+    end
+
+    describe 'response' do
+      it { should render_template('edit') }
+      it { should respond_with(:success) }
+      it { should assign_to(:story).with(story) }
+      it { should_not set_the_flash }
+    end
+  end
+
+  describe 'GET "new"' do
+    let(:story) { double }
+
+    before do
+      Story.stub!(:new).and_return(story)
+      get :new
+    end
+
+    describe 'routing' do
+      it { expect(get: '/stories/new').to route_to('stories#new') }
+      it { expect(new_story_path).to eql('/stories/new') }
+    end
+
+    describe 'response' do
+      it { should render_template('new') }
+      it { should respond_with(:success) }
+      it { should assign_to(:story).with(story) }
+      it { should_not set_the_flash }
+    end
+  end
+
+  describe 'POST "create"' do
+    describe 'routing' do
+      it { expect(post: '/stories').to route_to('stories#create') }
+    end
+
+    describe 'response' do
+      before { post :create, story: attr }
+
+      context 'when valid' do
+        let(:attr) { attributes_for :story }
+        it { should redirect_to("/stories/#{Story.last.id}") }
+        it { should respond_with(:redirect) }
+        it { should set_the_flash }
+      end
+
+      context 'when invalid' do
+        let(:attr) { attributes_for :invalid_story }
+        it { should render_template('new') }
+        it { should respond_with(:success) }
+        it { should assign_to(:story).with_kind_of(Story) }
+        it { should_not set_the_flash }
+      end
+    end
+  end
+
+  describe 'PUT "edit"' do
+    describe 'routing' do
+      it { expect(put: '/stories/1').to route_to('stories#update', id: '1') }
+    end
+
+    describe 'response' do
+      let(:story) { create :story }
+
+      before do
+        put :update, id: story.id, story: attr
+      end
+
+      context 'when valid' do
+        let(:attr) { attributes_for :story }
+        it { should redirect_to("/stories/#{Story.last.id}") }
+        it { should respond_with(:redirect) }
+        it { should set_the_flash }
+      end
+
+      context 'when invalid' do
+        let(:attr) { attributes_for :invalid_story }
+        it { should render_template('edit') }
+        it { should respond_with(:success) }
+        it { should assign_to(:story).with_kind_of(Story) }
+        it { should_not set_the_flash }
+      end
+    end
+  end
 end
