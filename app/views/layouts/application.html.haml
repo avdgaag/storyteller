@@ -1,0 +1,20 @@
+!!! 5
+%html{ lang: 'en' }
+  %head
+    %meta{ charset: 'utf-8' }
+    %title Storyteller
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    - if user_signed_in?
+      %li= link_to('Logout', destroy_user_session_path, method: :delete)
+    - else
+      %li= link_to('Login', new_user_session_path)
+    - if flash.any?
+      #flash
+        - if flash[:notice]
+          .notice= flash[:notice]
+        - if flash[:alert]
+          .alert= flash[:alert]
+    = yield
