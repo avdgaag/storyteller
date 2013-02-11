@@ -21,7 +21,7 @@ Feature: Writing a user story
 
   Scenario: Editing an existing user story
     Given a user story titled "Foo bar"
-    When I edit the user story "Foo bar":
+    When I edit user story "Foo bar":
       | Title | Bar baz |
     Then I should see a flash notice
     And I should see the full user story

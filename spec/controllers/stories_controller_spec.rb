@@ -23,6 +23,7 @@ describe StoriesController do
     let(:story) { double }
 
     before do
+      story.stub!(:decorate).and_return(story)
       Story.stub!(:find).and_return(story)
       get :show, id: '1'
     end

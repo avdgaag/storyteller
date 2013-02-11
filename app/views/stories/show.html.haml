@@ -1,2 +1,5 @@
 %div[story]
   %h1= story.title
+
+= render partial: 'comments/comments', locals: { commentable: story }
+= render partial: 'comments/form',     locals: { commentable: story }

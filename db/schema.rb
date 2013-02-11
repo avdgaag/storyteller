@@ -11,14 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130209160719) do
+ActiveRecord::Schema.define(:version => 20130211181522) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "body",             :null => false
+    t.integer  "commentable_id",   :null => false
+    t.string   "commentable_type", :null => false
+    t.integer  "user_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "stories", :force => true do |t|
-    t.string   "title",      :null => false
+    t.string   "title",                         :null => false
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "comments_count", :default => 0
   end
 
   add_index "stories", ["user_id"], :name => "index_stories_on_user_id"

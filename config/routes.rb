@@ -1,6 +1,7 @@
 Storyteller::Application.routes.draw do
   resources :stories do
     get 'page/:page', action: :index, on: :collection, as: 'paged'
+    resources :comments
   end
 
   devise_for :users

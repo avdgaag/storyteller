@@ -1,13 +1,15 @@
 class StoryDecorator < Draper::Decorator
   delegate_all
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       source.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
+  def comments_count
+    h.pluralize source.comments_count, 'comment'
+  end
 
+  def haml_object_ref
+    model.class.to_s.underscore
+  end
+
+  def permalink
+    h.link_to title, source, rel: 'bookmark'
+  end
 end

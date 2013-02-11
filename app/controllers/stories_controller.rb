@@ -3,12 +3,12 @@ class StoriesController < ApplicationController
   respond_to :html
 
   def index
-    @stories = Story.page(params[:page])
+    @stories = Story.page(params[:page]).decorate
     respond_with @stories
   end
 
   def show
-    @story = Story.find(params[:id])
+    @story = Story.find(params[:id]).decorate
     respond_with @story
   end
 

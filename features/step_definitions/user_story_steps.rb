@@ -10,6 +10,10 @@ When /^I go to the user stories page$/ do
   visit '/stories'
 end
 
+When /^I go to (user story ".*?")$/ do |story|
+  visit "/stories/#{story.to_param}"
+end
+
 When /^I open the first user story$/ do
   page.all('.summary_story > h3 > a').first.click
 end
@@ -31,7 +35,7 @@ When /^I create an invalid user story$/ do
   click_button 'Create Story'
 end
 
-When /^I edit (the user story "(?:.*?)"):$/ do |story, table|
+When /^I edit (user story ".*?"):$/ do |story, table|
   visit "/stories/#{story.to_param}/edit"
   table.rows_hash.each do |attr, value|
     fill_in attr, with: value

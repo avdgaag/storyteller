@@ -22,8 +22,6 @@ Feature: Browsing user stories
     And I open the first user story
     Then I should see "Foo bar"
 
-  Scenario: Comments count shown with user stories
-
   Scenario: User stories are paginated
     Given there are 11 user stories
     When I go to the user stories page
