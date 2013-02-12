@@ -9,3 +9,19 @@ When /^I restore version (-?\d+)$/ do |n|
   end
   click_button "Restore version #{n}"
 end
+
+Then /^I should see (-?\d+) events?$/ do |n|
+  expect(page).to have_css('.events .event', count: n)
+end
+
+Then /^event (-?\d+) should be a comment with "(.*?)"$/ do |n, text|
+  within page.all('.events .event')[n - 1] do
+    expect(page).to have_text(text)
+  end
+end
+
+Then /^event (-?\d+) should be a change$/ do |n|
+  within page.all('.events .event')[n - 1] do
+    expect(page).to have_text('changed')
+  end
+end

@@ -3,6 +3,18 @@ Feature: Edit history
   I see user story changes inline with comments
   So I can see what has happened over time
 
-  Scenario: A change shows a diff inline
-  Scenario: Consecutive diffs are shown inline
+  Background:
+    Given I have an account with "foo@bar.com"
+    And I am signed in
+    And a user story titled "Foo bar"
 
+  Scenario: A change shows a diff inline
+    When I go to user story "Foo bar"
+    And I leave a comment "Comment 1"
+    And I edit user story "Foo bar":
+      | Body | Bla bla |
+    And I leave a comment "Comment 2"
+    Then I should see 3 events
+    And event 1 should be a comment with "Comment 1"
+    And event 2 should be a change
+    And event 3 should be a comment with "Comment 2"

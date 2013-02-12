@@ -8,5 +8,5 @@ When /^I leave a comment "(.*?)"$/ do |text|
 end
 
 Then /^I should see a comment "(.*?)"$/ do |text|
-  expect(page).to have_xpath("//div[contains(@class, 'comments') and ./ol/li/div[contains(@class, 'body') and contains(., \"#{text}\")]]")
+  expect(page).to have_xpath("//div[contains(@class, 'events') and ./ol/li/div[contains(@class, 'body') and contains(., \"#{text}\")]]")
 end

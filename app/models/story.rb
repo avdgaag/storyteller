@@ -5,4 +5,8 @@ class Story < ActiveRecord::Base
 
   validates :title, presence: true
   has_many :comments, as: 'commentable'
+
+  def events
+    (comments + versions).sort_by(&:created_at)
+  end
 end

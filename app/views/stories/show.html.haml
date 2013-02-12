@@ -14,5 +14,8 @@
         = version.user
         = link_to 'compare', story_comparison_path(story_id: story.id, left: version.number, right: story.version), rel: 'compare'
 
-= render partial: 'comments/comments', locals: { commentable: story }
+%h2 Comments
+.events
+  %ol
+    = render story.events
 = render partial: 'comments/form',     locals: { commentable: story }
