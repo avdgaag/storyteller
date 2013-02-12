@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+  before_filter :authenticate_user!
+
   expose :story
   respond_to :html
 
@@ -30,7 +32,7 @@ class StoriesController < ApplicationController
 
   def update
     @story = Story.find(params[:id])
-    if @story.update_attributes(params[:story])
+    if @story.update_attributes(params[:story].merge(updated_by: current_user))
       flash[:notice] = 'Story updated'
     end
     respond_with @story

@@ -1,0 +1,4 @@
+%h1 Comparing versions #{comparison.left} and #{comparison.right}
+%p by #{comparison.author.email}
+= comparison.diff
+= button_to "Restore version #{comparison.left}", story_revertion_path(comparison.story, comparison.left), method: 'post'

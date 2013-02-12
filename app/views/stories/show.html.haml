@@ -1,5 +1,18 @@
 %div[story]
   %h1= story.title
+  %pre.body= story.body
+
+- if story.versions.count > 0
+  %h2 Previous versions (currently at #{story.version})
+  = link_to 'View latest changes', story_comparison_path(story, story.version - 1, story.version)
+  %h3 Older versions
+  %ol.versions
+    - story.versions.reject { |v| v.number == story.version }.each do |version|
+      %li{ class: "version_#{version.number}" }
+        = version.number
+        = version.created_at
+        = version.user
+        = link_to 'compare', story_comparison_path(story_id: story.id, left: version.number, right: story.version), rel: 'compare'
 
 = render partial: 'comments/comments', locals: { commentable: story }
 = render partial: 'comments/form',     locals: { commentable: story }

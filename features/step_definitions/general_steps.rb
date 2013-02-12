@@ -1,3 +1,11 @@
+When /^I click "(.*?)"$/ do |link|
+  click_link link
+end
+
+Then /^I should not see "(.*?)"$/ do |text|
+  expect(page).to_not have_content(text)
+end
+
 Then /^I should see "(.*?)"$/ do |text|
   expect(page).to have_content(text)
 end

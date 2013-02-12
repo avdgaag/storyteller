@@ -38,27 +38,27 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 group :development, :test do
-  gem "konacha"
+  # gem "konacha"
   gem "factory_girl_rails", "~> 4.2"
   gem "rspec-rails", "~> 2.12"
-  gem "quiet_assets"
+  # gem "quiet_assets"
 end
 
 group :development do
-  gem "better_errors"
+  # gem "better_errors"
 end
 
 group :test do
   gem "database_cleaner"
   gem "capybara", "~> 2.0"
   gem "shoulda-matchers"
-  gem "capybara-webkit", "~> 0.14"
+  # gem "capybara-webkit", "~> 0.14"
   gem "email_spec"
 end
 
 group :assets do
-  gem "rocks"
-  gem "bourbon"
+  # gem "rocks"
+  # gem "bourbon"
 end
 
 gem 'cucumber-rails', require: false
@@ -68,7 +68,9 @@ gem "haml"
 gem "haml-rails"
 gem "draper"
 gem "kaminari"
-gem "simple-navigation"
+# gem "simple-navigation"
 gem "simple_form"
 gem "thin"
-gem "cancan"
+# gem "cancan"
+gem 'vestal_versions', github: 'laserlemon/vestal_versions', branch: 'rails_3'
+gem 'diff-lcs'

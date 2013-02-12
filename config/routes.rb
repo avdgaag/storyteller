@@ -1,6 +1,9 @@
 Storyteller::Application.routes.draw do
+
   resources :stories do
     get 'page/:page', action: :index, on: :collection, as: 'paged'
+    get 'compare/:left/:right' => 'comparisons#show', as: 'comparison'
+    post 'revertions/:version' => 'revertions#create', as: 'revertion'
     resources :comments
   end
 

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe StoriesController do
 
+  before { sign_in :user, create(:user, :confirmed) }
+
   describe "GET 'index'" do
     before { get :index }
     describe 'routing' do
