@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212070010) do
+ActiveRecord::Schema.define(:version => 20130212192641) do
 
   create_table "comments", :force => true do |t|
     t.text     "body",             :null => false
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(:version => 20130212070010) do
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "requirements", :force => true do |t|
+    t.string   "title",        :null => false
+    t.datetime "completed_at"
+    t.integer  "story_id",     :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "requirements", ["story_id"], :name => "index_requirements_on_story_id"
+
   create_table "stories", :force => true do |t|
     t.string   "title",                         :null => false
     t.text     "body"
@@ -32,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20130212070010) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.integer  "comments_count", :default => 0
+    t.datetime "completed_at"
   end
 
   add_index "stories", ["user_id"], :name => "index_stories_on_user_id"

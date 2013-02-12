@@ -2,6 +2,25 @@
   %h1= story.title
   %pre.body= story.body
 
+%h2 Requirements
+%ol.requirements
+  - story.done_requirements.each do |req|
+    %li.done[req]
+      %label
+        = check_box_tag "done_#{req.id}", "1", true
+        = req.title
+      = button_to 'Remove', [story, req], method: 'delete'
+  - story.pending_requirements.each do |req|
+    %li.pending[req]
+      %label
+        = check_box_tag "done_#{req.id}", "1", false
+        = req.title
+      = button_to 'Remove', [story, req], method: 'delete'
+= button_to 'Mark as ready', story_completion_path(story)
+= simple_form_for [story, story.pending_requirements.build] do |f|
+  = f.input :title
+  = f.submit
+
 - if story.versions.count > 0
   %h2 Previous versions (currently at #{story.version})
   = link_to 'View latest changes', story_comparison_path(story, story.version - 1, story.version)
