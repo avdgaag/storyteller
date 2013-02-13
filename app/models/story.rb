@@ -15,6 +15,28 @@ class Story < ActiveRecord::Base
   scope :pending, where('completed_at is null')
   scope :owned_by, ->(user) { where(owner_id: user.id) }
 
+  include PgSearch
+  pg_search_scope :search_by_title_and_body, against: [:title, :body]
+
+  def self.search(query)
+    base = scoped
+    if query =~ /complete:(true|false)/
+      if $1 == 'false'
+        base = base.pending
+      elsif $1 == 'true'
+        base = base.done
+      end
+      query.sub! $&, ''
+    end
+    if query =~ /owner:(\S+)/
+      user = User.find_by_email $1
+      base = base.owned_by user if user
+      query.sub! $&, ''
+    end
+    return base if query.blank?
+    base.search_by_title_and_body(query)
+  end
+
   def events
     (comments + versions).sort_by(&:created_at)
   end

@@ -1,3 +1,7 @@
+= form_tag({ url: stories_path }, { method: 'get' }) do
+  = text_field_tag :q, params[:query]
+  = submit_tag 'Search'
+
 = link_to 'Write new user story', new_story_path
 - if stories.any?
   .filters
@@ -6,5 +10,7 @@
     = link_to 'Mine',    stories_path(filter: 'mine')
   = render partial: 'summary_story', collection: stories
   = paginate stories
+- elsif params[:q]
+  %p Nothing found.
 - else
   %p There are no user stories yet.

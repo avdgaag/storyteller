@@ -74,3 +74,4 @@ gem "thin"
 # gem "cancan"
 gem 'vestal_versions', github: 'laserlemon/vestal_versions', branch: 'rails_3'
 gem 'diff-lcs'
+gem 'pg_search'
