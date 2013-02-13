@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   respond_to :html
 
   def index
-    @stories = Story.page(params[:page]).decorate
+    @stories = Story.by_date.page(params[:page]).decorate
     respond_with @stories
   end
 

@@ -9,6 +9,8 @@ class Story < ActiveRecord::Base
   has_many :pending_requirements, class_name: 'Requirement', conditions: 'completed_at is null'
   has_many :done_requirements, class_name: 'Requirement', conditions: 'completed_at is not null'
 
+  scope :by_date, order('created_at desc')
+
   def events
     (comments + versions).sort_by(&:created_at)
   end
