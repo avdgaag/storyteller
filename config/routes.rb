@@ -10,8 +10,10 @@ Storyteller::Application.routes.draw do
 
   devise_for :users
 
+  resources :users
+
   authenticated :user do
-    root to: 'users#show'
+    root to: 'stories#index'
   end
 
   devise_scope :user do

@@ -7,14 +7,21 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    - if user_signed_in?
-      %li= link_to('Logout', destroy_user_session_path, method: :delete)
-    - else
-      %li= link_to('Login', new_user_session_path)
+    %h1 Storyteller
+    %ul
+      - if user_signed_in?
+        %li= current_user.email
+        %li= link_to 'Logout', destroy_user_session_path, method: :delete
+      - else
+        %li= link_to 'Login', new_user_session_path
     - if flash.any?
       #flash
         - if flash[:notice]
           .notice= flash[:notice]
         - if flash[:alert]
           .alert= flash[:alert]
+    %hr/
     = yield
+    %footer
+      %hr/
+      &copy; copyright 2012
