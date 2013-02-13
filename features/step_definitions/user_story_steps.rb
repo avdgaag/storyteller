@@ -1,5 +1,9 @@
-Given /^a user story titled "(.*?)"$/ do |title|
-  FactoryGirl.create :story, title: title
+Given /^a (|completed|incomplete) ?user story titled "(.*?)"$/ do |trait, title|
+  if trait.blank?
+    FactoryGirl.create :story, title: title
+  else
+    FactoryGirl.create :story, trait.to_sym, title: title
+  end
 end
 
 Given /^there (?:is|are) (-?\d+) user stor(?:ies|y)$/ do |n|
@@ -41,6 +45,12 @@ When /^I edit (user story ".*?"):$/ do |story, table|
     fill_in attr, with: value
   end
   click_button 'Update Story'
+end
+
+When /^I filter by "(.*?)"$/ do |status|
+  within '.filters' do
+    click_link status
+  end
 end
 
 Then /^I should see the full user story$/ do

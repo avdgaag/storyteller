@@ -5,7 +5,9 @@ class StoriesController < ApplicationController
   respond_to :html
 
   def index
-    @stories = Story.by_date.page(params[:page]).decorate
+    @stories = Story.by_date
+    @stories = @stories.send(params[:filter]) if %w[done pending].include? params[:filter]
+    @stories = @stories.page(params[:page]).decorate
     respond_with @stories
   end
 

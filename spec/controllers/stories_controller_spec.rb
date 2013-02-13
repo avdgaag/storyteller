@@ -5,7 +5,6 @@ describe StoriesController do
   before { sign_in :user, create(:user, :confirmed) }
 
   describe "GET 'index'" do
-    before { get :index }
     describe 'routing' do
       it { expect(get: '/stories').to route_to('stories#index') }
       it { expect(get: '/stories/page/2').to route_to('stories#index', page: '2') }
@@ -14,10 +13,21 @@ describe StoriesController do
     end
 
     describe 'response' do
+      before { get :index }
       it { should render_template('index') }
       it { should respond_with(:success) }
       it { should assign_to(:stories) }
       it { should_not set_the_flash }
+    end
+
+    it 'uses filters as scopes' do
+      Story.should_receive(:done).and_return(Story.scoped)
+      get :index, filter: 'done'
+    end
+
+    it 'does nothing when using invalid filter' do
+      Story.should_not_receive(:foo)
+      get :index, filter: 'foo'
     end
   end
 

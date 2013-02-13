@@ -30,6 +30,20 @@ Feature: Browsing user stories
     Then I should see 1 user story
 
   Scenario: List user stories that are done
+    Given a completed user story titled "Foo bar"
+    And a incomplete user story titled "Baz qux"
+    When I go to the user stories page
+    And I filter by "Done"
+    Then I should see 1 user story
+    And I should see "Foo bar"
+
   Scenario: List user stories that are pending
+    Given a completed user story titled "Foo bar"
+    And a incomplete user story titled "Baz qux"
+    When I go to the user stories page
+    And I filter by "Pending"
+    Then I should see 1 user story
+    And I should see "Baz qux"
+
   Scenario: List user stories waiting for me
 
