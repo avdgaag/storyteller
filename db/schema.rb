@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212192641) do
+ActiveRecord::Schema.define(:version => 20130212212357) do
 
   create_table "comments", :force => true do |t|
     t.text     "body",             :null => false
@@ -36,13 +36,14 @@ ActiveRecord::Schema.define(:version => 20130212192641) do
   add_index "requirements", ["story_id"], :name => "index_requirements_on_story_id"
 
   create_table "stories", :force => true do |t|
-    t.string   "title",                         :null => false
+    t.string   "title",                             :null => false
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "comments_count", :default => 0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "comments_count",     :default => 0
     t.datetime "completed_at"
+    t.integer  "requirements_count", :default => 0
   end
 
   add_index "stories", ["user_id"], :name => "index_stories_on_user_id"

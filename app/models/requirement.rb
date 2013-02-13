@@ -1,7 +1,7 @@
 class Requirement < ActiveRecord::Base
   attr_accessible :completed_at, :story_id, :title
 
-  belongs_to :story
+  belongs_to :story, counter_cache: true
 
   validates :title, presence: true
 

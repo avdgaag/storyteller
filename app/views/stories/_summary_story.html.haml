@@ -1,3 +1,6 @@
 %div[summary_story, :summary]
   %h3= summary_story.permalink
-  %footer= summary_story.comments_count
+  %footer
+    = summary_story.comments_count
+    = summary_story.requirements_count
+    = summary_story.completed_at

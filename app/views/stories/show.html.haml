@@ -2,7 +2,7 @@
   %h1= story.title
   %pre.body= story.body
 
-%h2 Requirements
+%h2= story.requirements_count
 %ol.requirements
   - story.done_requirements.each do |req|
     %li.done[req]

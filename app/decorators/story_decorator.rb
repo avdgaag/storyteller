@@ -5,6 +5,10 @@ class StoryDecorator < Draper::Decorator
     h.pluralize source.comments_count, 'comment'
   end
 
+  def requirements_count
+    h.pluralize source.requirements_count, 'requirement'
+  end
+
   def haml_object_ref
     model.class.to_s.underscore
   end
