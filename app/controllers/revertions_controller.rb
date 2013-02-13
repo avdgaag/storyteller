@@ -2,8 +2,7 @@ class RevertionsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @story = Story.find(params[:story_id])
-    @story.revert_to!(params[:version].to_i)
-    redirect_to @story, notice: "User story is reverted to version #{params[:version].to_i}"
+    @revertion = Revertion.new(params.merge user: current_user).revert
+    redirect_to @revertion.story, notice: "User story is reverted to version #{@revertion.version}"
   end
 end
