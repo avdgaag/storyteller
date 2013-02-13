@@ -8,7 +8,7 @@ Feature: Rollback to previous version
     And I am signed in
     And a user story titled "Foo bar"
 
-  Scenario: Compare to older version
+  Scenario:
     When I edit user story "Foo bar":
       | Body | Bla bla 1 |
     And I edit user story "Foo bar":

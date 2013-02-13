@@ -25,12 +25,3 @@ Feature: User story versioning
     And I should see "by foo@bar.com"
     And I should see "Lorem ipsum" was removed
     And I should see "Bla bla" was added
-
-  Scenario: Compare to older version
-    When I edit user story "Foo bar":
-      | Body | Bla bla 1 |
-    And I edit user story "Foo bar":
-      | Body | Bla bla 2 |
-    And I restore version 2
-    Then I should see "Bla bla 1"
-    And I should see a flash notice
