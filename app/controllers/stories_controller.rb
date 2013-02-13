@@ -7,6 +7,7 @@ class StoriesController < ApplicationController
   def index
     @stories = Story.by_date
     @stories = @stories.send(params[:filter]) if %w[done pending].include? params[:filter]
+    @stories = @stories.pending.owned_by(current_user) if params[:filter] == 'mine'
     @stories = @stories.page(params[:page]).decorate
     respond_with @stories
   end

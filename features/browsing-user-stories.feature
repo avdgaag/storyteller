@@ -46,4 +46,12 @@ Feature: Browsing user stories
     And I should see "Baz qux"
 
   Scenario: List user stories waiting for me
-
+    Given a incomplete user story titled "Foo bar"
+    And a completed user story titled "Baz qux"
+    And the user story "Foo bar" belongs to me
+    And the user story "Baz qux" belongs to me
+    When I go to the user stories page
+    And I filter by "Mine"
+    Then I should see 1 user story
+    And I should see "Foo bar"
+    And I should not see "Baz qux"

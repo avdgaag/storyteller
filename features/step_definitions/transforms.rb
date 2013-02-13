@@ -13,3 +13,11 @@ end
 Transform /^user story "(.*?)"$/ do |title|
   Story.find_by_title!(title)
 end
+
+Transform /^user "(.*?)"$/ do |login|
+  User.find_by_email!(login)
+end
+
+Transform /^me$/ do |str|
+  @my_account
+end

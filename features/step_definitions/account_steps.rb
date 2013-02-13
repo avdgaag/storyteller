@@ -1,3 +1,7 @@
+Given /^a user "(.*?)"$/ do |email|
+  FactoryGirl.create :user, :confirmed, email: email
+end
+
 Given /^I have an account with "(.*?)"$/ do |email|
   @my_account = FactoryGirl.create :user, :confirmed, email: email
 end

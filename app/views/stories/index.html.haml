@@ -1,8 +1,9 @@
 = link_to 'Write new user story', new_story_path
 - if stories.any?
   .filters
-    = link_to 'Done', stories_path(filter: 'done')
+    = link_to 'Done',    stories_path(filter: 'done')
     = link_to 'Pending', stories_path(filter: 'pending')
+    = link_to 'Mine',    stories_path(filter: 'mine')
   = render partial: 'summary_story', collection: stories
   = paginate stories
 - else
