@@ -4,7 +4,7 @@ Then /^I should see "(.*?)" was (removed|added)$/ do |text, action|
 end
 
 When /^I restore version (-?\d+)$/ do |n|
-  within ".versions .version_#{n}" do
+  within ".versions .version_log_#{n}" do
     page.find('a[rel="compare"]').click
   end
   click_button "Restore version #{n}"

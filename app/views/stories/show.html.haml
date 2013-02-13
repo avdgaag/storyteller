@@ -29,15 +29,10 @@
   = link_to 'View latest changes', story_comparison_path(story, story.version - 1, story.version)
   %h3 Older versions
   %ol.versions
-    - story.versions.reject { |v| v.number == story.version }.each do |version|
-      %li{ class: "version_#{version.number}" }
-        = version.number
-        = version.created_at
-        = version.user
-        = link_to 'compare', story_comparison_path(story_id: story.id, left: version.number, right: story.version), rel: 'compare'
+    = render partial: 'vestal_versions/versions/version_log', collection: story.older_versions, story: story
 
-%h2 Comments
+%h2 Discuss
 .events
   %ol
     = render story.events
-= render partial: 'comments/form',     locals: { commentable: story }
+= render partial: 'comments/form', locals: { commentable: story }

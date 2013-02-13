@@ -1,2 +1,4 @@
+- comment = CommentDecorator.new(comment)
 %li.event[comment]
+  %footer #{comment.user} (#{comment.created_at})
   .body= comment.body

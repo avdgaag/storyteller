@@ -21,4 +21,10 @@ class Story < ActiveRecord::Base
     touch :completed_at
     save!
   end
+
+  def older_versions
+    versions.reject do |version|
+      version.number == version
+    end
+  end
 end

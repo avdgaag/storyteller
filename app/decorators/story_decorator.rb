@@ -1,5 +1,14 @@
 class StoryDecorator < Draper::Decorator
   delegate_all
+  decorates_association :comments
+
+  def completed_at
+    if source.completed_at.nil?
+      'pending'
+    else
+      h.time_ago_in_words source.completed_at
+    end
+  end
 
   def comments_count
     h.pluralize source.comments_count, 'comment'
