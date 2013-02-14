@@ -1,4 +1,8 @@
 Storyteller::Application.routes.draw do
+  resources :epics do
+    resources :stories, only: [:new, :create]
+  end
+
   resources :stories do
     get 'page/:page', action: :index, on: :collection, as: 'paged'
     get 'compare/:left/:right' => 'comparisons#show',   as: 'comparison'

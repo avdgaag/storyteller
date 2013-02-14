@@ -21,3 +21,7 @@ end
 Transform /^me$/ do |str|
   @my_account
 end
+
+Transform /^epic "(.*?)"$/ do |title|
+  Epic.find_by_title! title
+end

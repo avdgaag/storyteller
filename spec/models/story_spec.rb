@@ -7,6 +7,7 @@ describe Story do
   it { should have_many(:done_requirements) }
   it { should have_many(:requirements) }
   it { should belong_to(:owner) }
+  it { should belong_to(:epic) }
 
   describe '#complete' do
     let(:story)       { create :story, :incomplete }

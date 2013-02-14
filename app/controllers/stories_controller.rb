@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_epic
 
   expose :story
   respond_to :html
@@ -20,11 +21,13 @@ class StoriesController < ApplicationController
 
   def new
     @story = Story.new
+    @story.epic = @epic if epic?
     respond_with @story
   end
 
   def create
     @story = Story.new(params[:story])
+    @story.epic = @epic if epic?
     flash[:notice] = 'Story created' if @story.save
     respond_with(@story)
   end
@@ -41,4 +44,15 @@ class StoriesController < ApplicationController
     end
     respond_with @story
   end
+
+  private
+
+  def find_epic
+    @epic = Epic.find(params[:epic_id]) if epic?
+  end
+
+  def epic?
+    !!params[:epic_id]
+  end
+  helper_method :epic?
 end

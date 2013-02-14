@@ -1,6 +1,7 @@
-= simple_form_for story do |f|
+= simple_form_for(epic? ? [story.epic, story] : story) do |f|
   .inputs
     = f.input :title
     = f.input :body
+    = f.association :epic, label_method: :title
   .actions
     = f.submit

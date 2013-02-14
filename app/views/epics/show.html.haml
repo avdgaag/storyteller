@@ -1,0 +1,4 @@
+%h1= epic.title
+= button_to 'Destroy', epic, method: :delete
+= link_to 'Add user story to this epic', new_epic_story_path(epic)
+= render partial: 'stories/summary_story', collection: epic.stories

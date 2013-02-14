@@ -42,7 +42,11 @@ end
 When /^I edit (user story ".*?"):$/ do |story, table|
   visit "/stories/#{story.to_param}/edit"
   table.rows_hash.each do |attr, value|
-    fill_in attr, with: value
+    if attr == 'Epic'
+      select value, from: attr
+    else
+      fill_in attr, with: value
+    end
   end
   click_button 'Update Story'
 end

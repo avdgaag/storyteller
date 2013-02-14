@@ -75,47 +75,101 @@ describe StoriesController do
   end
 
   describe 'GET "new"' do
-    let(:story) { double }
+    let(:story) { double epic: epic, :epic= => epic }
+    let(:epic)  { double }
 
     before do
       Story.stub!(:new).and_return(story)
-      get :new
+      Epic.stub!(:find).and_return(epic)
     end
 
-    describe 'routing' do
-      it { expect(get: '/stories/new').to route_to('stories#new') }
-      it { expect(new_story_path).to eql('/stories/new') }
+    context 'nested under epics' do
+      before { get :new, epic_id: '1' }
+
+      describe 'routing' do
+        it { expect(get: '/epics/1/stories/new').to route_to('stories#new', epic_id: '1') }
+        it { expect(new_epic_story_path(1)).to eql('/epics/1/stories/new') }
+      end
+
+      describe 'response' do
+        it { should render_template('new') }
+        it { should respond_with(:success) }
+        it { should assign_to(:story).with(story) }
+        it { should assign_to(:epic).with(epic) }
+        it { should_not set_the_flash }
+      end
     end
 
-    describe 'response' do
-      it { should render_template('new') }
-      it { should respond_with(:success) }
-      it { should assign_to(:story).with(story) }
-      it { should_not set_the_flash }
+    context 'on its own' do
+      before { get :new }
+
+      describe 'routing' do
+        it { expect(get: '/stories/new').to route_to('stories#new') }
+        it { expect(new_story_path).to eql('/stories/new') }
+      end
+
+      describe 'response' do
+        it { should render_template('new') }
+        it { should respond_with(:success) }
+        it { should assign_to(:story).with(story) }
+        it { should_not set_the_flash }
+      end
     end
   end
 
   describe 'POST "create"' do
-    describe 'routing' do
-      it { expect(post: '/stories').to route_to('stories#create') }
-    end
-
-    describe 'response' do
-      before { post :create, story: attr }
-
-      context 'when valid' do
-        let(:attr) { attributes_for :story }
-        it { should redirect_to("/stories/#{Story.last.id}") }
-        it { should respond_with(:redirect) }
-        it { should set_the_flash }
+    context 'nested under epics' do
+      describe 'routing' do
+        it { expect(post: '/epics/1/stories').to route_to('stories#create', epic_id: '1') }
       end
 
-      context 'when invalid' do
-        let(:attr) { attributes_for :invalid_story }
-        it { should render_template('new') }
-        it { should respond_with(:success) }
-        it { should assign_to(:story).with_kind_of(Story) }
-        it { should_not set_the_flash }
+      describe 'response' do
+        let(:epic) { build_stubbed :epic }
+
+        before do
+          Epic.should_receive(:find).with('1').and_return(epic)
+          post :create, epic_id: '1', story: attr
+        end
+
+        context 'when valid' do
+          let(:attr) { attributes_for :story }
+          it { should redirect_to("/stories/#{Story.last.id}") }
+          it { should respond_with(:redirect) }
+          it { should set_the_flash }
+        end
+
+        context 'when invalid' do
+          let(:attr) { attributes_for :invalid_story }
+          it { should render_template('new') }
+          it { should respond_with(:success) }
+          it { should assign_to(:story).with_kind_of(Story) }
+          it { should_not set_the_flash }
+        end
+      end
+
+      context 'on its own' do
+        describe 'routing' do
+          it { expect(post: '/stories').to route_to('stories#create') }
+        end
+
+        describe 'response' do
+          before { post :create, story: attr }
+
+          context 'when valid' do
+            let(:attr) { attributes_for :story }
+            it { should redirect_to("/stories/#{Story.last.id}") }
+            it { should respond_with(:redirect) }
+            it { should set_the_flash }
+          end
+
+          context 'when invalid' do
+            let(:attr) { attributes_for :invalid_story }
+            it { should render_template('new') }
+            it { should respond_with(:success) }
+            it { should assign_to(:story).with_kind_of(Story) }
+            it { should_not set_the_flash }
+          end
+        end
       end
     end
   end

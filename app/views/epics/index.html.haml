@@ -1,0 +1,5 @@
+= link_to 'Add new epic', new_epic_path
+
+%ol.epics
+  - epics.each do |epic|
+    %li[epic]= epic.title
