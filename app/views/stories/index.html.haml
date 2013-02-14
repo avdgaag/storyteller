@@ -2,9 +2,11 @@
   .four.columns
     = filters :stories_path, 'Done' => 'done', 'Pending' => 'pending', 'Mine' => 'mine'
   .five.columns
-    = form_tag({ url: stories_path }, { method: 'get', class: 'row' }) do
-      = text_field_tag :q, params[:q], placeholder: 'Search user stories', class: 'eight columns'
-      = submit_tag 'Search', class: 'button radius three columns'
+    = form_tag({ url: stories_path }, { method: 'get', class: 'row collapse' }) do
+      .nine.columns
+        = text_field_tag :q, params[:q], placeholder: 'Search user stories'
+      .three.columns
+        = submit_tag 'Search', class: 'button expand postfix'
   .three.columns
     = link_to 'Write new user story', new_story_path, class: 'button medium radius'
 - if stories.any?
