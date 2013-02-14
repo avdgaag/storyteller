@@ -18,6 +18,9 @@ group :assets do
   # gem 'therubyracer', platforms: :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'compass-rails'
+  gem 'zurb-foundation'
 end
 
 gem 'jquery-rails'
@@ -75,3 +78,4 @@ gem "thin"
 gem 'vestal_versions', github: 'laserlemon/vestal_versions', branch: 'rails_3'
 gem 'diff-lcs'
 gem 'pg_search'
+gem 'rdiscount'

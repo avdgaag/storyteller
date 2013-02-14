@@ -1,45 +1,51 @@
-%div[story]
-  %h1= story.title
-  %pre.body= story.body
+.row
+  .eight.columns
+    %div[story]
+      %h1= story.title
+      .body= story.body
 
-= link_to 'Edit', edit_story_path(story)
-= link_to 'Back', stories_path
+    = link_to 'Edit', edit_story_path(story)
+    = link_to 'Back', stories_path
 
-%h2= story.requirements_count
-%ol.requirements
-  - story.done_requirements.each do |req|
-    %li.done[req]
-      %label
-        = check_box_tag "done_#{req.id}", "1", true
-        = req.title
-      = button_to 'Remove', [story, req], method: 'delete'
-  - story.pending_requirements.each do |req|
-    %li.pending[req]
-      %label
-        = check_box_tag "done_#{req.id}", "1", false
-        = req.title
-      = button_to 'Remove', [story, req], method: 'delete'
-= button_to 'Mark as ready', story_completion_path(story)
-= simple_form_for [story, story.pending_requirements.build] do |f|
-  = f.input :title
-  = f.submit
-= simple_form_for story do |f|
-  = f.association :owner, label_method: :email
-  = f.submit 'Set Owner'
-- if story.owner.present?
-  Waiting for #{story.owner.email}
-- else
-  Not assigned to anyone
+    %h2 Discuss
+    .events
+      %ol
+        = render story.events
+    = render partial: 'comments/form', locals: { commentable: story }
+  .four.columns
+    %h5= story.requirements_count
+    %ol.requirements
+      - story.done_requirements.each do |req|
+        %li.done[req]
+          %label
+            = check_box_tag "done_#{req.id}", "1", true
+            = req.title
+          = button_to 'Remove', [story, req], method: 'delete'
+      - story.pending_requirements.each do |req|
+        %li.pending[req]
+          %label
+            = check_box_tag "done_#{req.id}", "1", false
+            = req.title
+          = button_to 'Remove', [story, req], method: 'delete'
+    = button_to 'Mark as ready', story_completion_path(story), class: 'button radius'
+    = simple_form_for [story, story.pending_requirements.build] do |f|
+      = f.input :title
+      = f.submit
 
-- if story.versions.count > 0
-  %h2 Previous versions (currently at #{story.version})
-  = link_to 'View latest changes', story_comparison_path(story, story.version - 1, story.version)
-  %h3 Older versions
-  %ol.versions
-    = render partial: 'vestal_versions/versions/version_log', collection: story.older_versions, story: story
+    %h5 Story owner
+    = simple_form_for story do |f|
+      = f.association :owner, label_method: :email
+      = f.submit 'Set Owner'
+    - if story.owner.present?
+      Waiting for #{story.owner.email}
+    - else
+      Not assigned to anyone
 
-%h2 Discuss
-.events
-  %ol
-    = render story.events
-= render partial: 'comments/form', locals: { commentable: story }
+
+    - if story.versions.count > 0
+      %h5 Previous versions (currently at #{story.version})
+      = link_to 'View latest changes', story_comparison_path(story, story.version - 1, story.version)
+      %h6 Older versions
+      %ol.versions
+        = render partial: 'vestal_versions/versions/version_log', collection: story.older_versions, story: story
+

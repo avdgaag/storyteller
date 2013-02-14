@@ -1,14 +1,14 @@
-= form_tag({ url: stories_path }, { method: 'get' }) do
-  = text_field_tag :q, params[:query]
-  = submit_tag 'Search'
-
-= link_to 'Write new user story', new_story_path
+.row
+  .four.columns
+    = filters :stories_path, 'Done' => 'done', 'Pending' => 'pending', 'Mine' => 'mine'
+  .five.columns
+    = form_tag({ url: stories_path }, { method: 'get', class: 'row' }) do
+      = text_field_tag :q, params[:q], placeholder: 'Search user stories', class: 'eight columns'
+      = submit_tag 'Search', class: 'button radius three columns'
+  .three.columns
+    = link_to 'Write new user story', new_story_path, class: 'button medium radius'
 - if stories.any?
-  .filters
-    = link_to 'Done',    stories_path(filter: 'done')
-    = link_to 'Pending', stories_path(filter: 'pending')
-    = link_to 'Mine',    stories_path(filter: 'mine')
-  = render partial: 'summary_story', collection: stories
+  = render partial: 'stories/summary_stories', object: stories
   = paginate stories
 - elsif params[:q]
   %p Nothing found.

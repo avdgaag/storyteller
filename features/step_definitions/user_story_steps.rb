@@ -19,7 +19,7 @@ When /^I go to (user story ".*?")$/ do |story|
 end
 
 When /^I open the first user story$/ do
-  page.all('.summary_story > h3 > a').first.click
+  page.all('.summary_story a[rel="bookmark"]').first.click
 end
 
 When /^I go to create a new user story$/ do

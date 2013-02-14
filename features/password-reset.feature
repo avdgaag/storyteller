@@ -14,7 +14,7 @@ Feature: Password reset
 
   Scenario: Error when asking for wrong email
     When I request a new password for "foo@bar"
-    Then I should see "Email not found"
+    Then I should see "Emailnot found"
 
   Scenario: Using outdated token link
     When I use an outdated token to reset my password
@@ -30,4 +30,4 @@ Feature: Password reset
     And I follow "Change my password" in the email
     And I enter "bla" as my new password
     Then I should see the following validation errors:
-      | Password | is too short |
+      | New password | is too short |

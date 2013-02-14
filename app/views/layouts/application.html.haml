@@ -6,22 +6,38 @@
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
   %body
-    %h1 Storyteller
-    %ul
-      - if user_signed_in?
-        %li= current_user.email
-        %li= link_to 'Logout', destroy_user_session_path, method: :delete
-      - else
-        %li= link_to 'Login', new_user_session_path
-    - if flash.any?
-      #flash
-        - if flash[:notice]
-          .notice= flash[:notice]
-        - if flash[:alert]
-          .alert= flash[:alert]
-    %hr/
-    = yield
-    %footer
-      %hr/
+    %header
+      .row
+        %nav.top-bar
+          %ul
+            %li.name
+              %h1= link_to 'Storyteller', root_url
+            %li.toggle-topbar
+              %a{ href: '#' }
+          %section
+            %ul.left
+              %li.divider
+              %li= link_to 'Stories', stories_path
+              %li= link_to 'Epics', epics_path
+            %ul.right
+              - if user_signed_in?
+                %li.has-dropdown
+                  = link_to current_user.email, edit_user_registration_path(current_user)
+                  %ul.dropdown
+                    %li= link_to 'Edit profile', edit_user_registration_path(current_user)
+                    %li= link_to 'Logout', destroy_user_session_path, method: :delete
+              - else
+                %li= link_to 'Login', new_user_session_path
+      .row
+        - if flash.any?
+          #flash
+            - if flash[:notice]
+              .alert-box.success.notice= flash[:notice]
+            - if flash[:alert]
+              .alert-box.alert= flash[:alert]
+    .row
+      = yield
+    %footer.row
       &copy; copyright 2012

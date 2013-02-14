@@ -1,6 +1,7 @@
-%div[summary_story, :summary]
-  %h3= summary_story.permalink
-  %footer
-    = summary_story.comments_count
-    = summary_story.requirements_count
-    = summary_story.completed_at
+%tr[summary_story, :summary]
+  %td= summary_story.id
+  %td= summary_story.permalink
+  %td= summary_story.comments_count
+  %td= summary_story.requirements_count
+  %td= summary_story.completed_at
+  %td= link_to 'Edit', [:edit, summary_story]

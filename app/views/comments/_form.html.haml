@@ -1,5 +1,6 @@
+%h3 Add a comment
 = simple_form_for [commentable, (flash[:comment] || commentable.comments.build)] do |f|
   .inputs
     = f.input :body
   .actions
-    = f.submit
+    = f.submit class: 'button radius'

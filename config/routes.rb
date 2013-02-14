@@ -12,9 +12,7 @@ Storyteller::Application.routes.draw do
     resources :requirements
   end
 
-  devise_for :users
-
-  resources :users
+  devise_for :users, path: 'account'
 
   authenticated :user do
     root to: 'stories#index'

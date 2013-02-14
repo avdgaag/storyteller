@@ -1,4 +1,6 @@
 - comment = CommentDecorator.new(comment)
-%li.event[comment]
-  %footer #{comment.user} (#{comment.created_at})
-  .body= comment.body
+%li.row.event[comment]
+  %footer.three.columns
+    %div= comment.user
+    %div= comment.created_at
+  .body.nine.columns= comment.body

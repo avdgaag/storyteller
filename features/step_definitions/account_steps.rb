@@ -11,7 +11,7 @@ Given /^I am signed in$/ do
 end
 
 When /^I use an outdated token to reset my password$/ do
-  visit '/users/password/edit?reset_password_token=foobar'
+  visit '/account/password/edit?reset_password_token=foobar'
 end
 
 When /^I enter "(.*?)" as my new password$/ do |password|
@@ -21,7 +21,7 @@ When /^I enter "(.*?)" as my new password$/ do |password|
 end
 
 When /^I request a new password for "(.*?)"$/ do |email|
-  visit '/users/sign_in'
+  visit '/account/sign_in'
   click_link 'Forgot your password?'
   fill_in 'user_email', with: email
   click_button 'Send me reset password instructions'
@@ -37,25 +37,25 @@ When /^I create an account with "(.*?)" and "(.*?)"$/ do |email, password|
 end
 
 When /^I sign out$/ do
-  page.driver.submit :delete, '/users/sign_out', {}
+  page.driver.submit :delete, '/account/sign_out', {}
 end
 
 When /^I sign in with "(.*?)" and "(.*?)"$/ do |email, password|
-  visit '/users/sign_in'
+  visit '/account/sign_in'
   fill_in 'user_email', with: email
   fill_in 'user_password', with: password
   click_button 'Sign in'
 end
 
 When /^I change my password incorrectly$/ do
-  visit '/users/edit'
+  visit '/account/edit'
   fill_in 'user_password', with: 'longpassword'
   fill_in 'user_password_confirmation', with: 'somethingsilly'
   click_button 'Update'
 end
 
 When /^I change my password to "(.*?)" and confirm with "(.*?)"$/ do |password, current_password|
-  visit '/users/edit'
+  visit '/account/edit'
   fill_in 'user_password', with: password
   fill_in 'user_password_confirmation', with: password
   fill_in 'user_current_password', with: current_password
@@ -63,14 +63,14 @@ When /^I change my password to "(.*?)" and confirm with "(.*?)"$/ do |password, 
 end
 
 When /^I change my email to "(.*?)" and confirm with "(.*?)"$/ do |email, current_password|
-  visit '/users/edit'
+  visit '/account/edit'
   fill_in 'user_email', with: email
   fill_in 'user_current_password', with: current_password
   click_button 'Update'
 end
 
 When /^I edit my account as follows:$/ do |table|
-  visit '/users/edit'
+  visit '/account/edit'
   table.rows_hash.each do |attr, value|
     fill_in attr, with: value
   end

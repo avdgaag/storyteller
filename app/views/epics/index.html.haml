@@ -1,5 +1,5 @@
-= link_to 'Add new epic', new_epic_path
+= link_to 'Add new epic', new_epic_path, class: 'button radius'
 
 %ol.epics
   - epics.each do |epic|
-    %li[epic]= epic.title
+    %li[epic]= link_to epic.title, epic
