@@ -14,7 +14,7 @@ describe EpicsController do
       it { should render_template('index') }
       it { should respond_with(:success) }
       it { should_not set_the_flash }
-      it { should assign_to(:epics).with_kind_of(ActiveRecord::Relation) }
+      it { should assign_to(:epics) }
     end
   end
 

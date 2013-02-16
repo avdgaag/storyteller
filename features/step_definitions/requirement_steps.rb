@@ -8,7 +8,7 @@ end
 
 When /^I add requirement "(.*?)"$/ do |title|
   fill_in 'requirement_title', with: title
-  click_button 'Create Requirement'
+  click_button 'Add'
 end
 
 def find_requirement_by_title(title)

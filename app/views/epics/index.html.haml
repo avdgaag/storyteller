@@ -1,5 +1,10 @@
-= link_to 'Add new epic', new_epic_path, class: 'button radius'
+%div
+  = link_to 'Add new epic', new_epic_path, class: 'button radius'
 
-%ol.epics
+%ul.epics.block-grid.three-up
   - epics.each do |epic|
-    %li[epic]= link_to epic.title, epic
+    %li[epic]
+      = epic.permalink
+      %footer
+        = epic.stories_count
+      = markdown epic.body

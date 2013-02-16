@@ -4,4 +4,7 @@
   .one.columns= button_to 'Destroy', epic, method: :delete, class: 'button alert radius small'
   .three.columns= link_to 'Add user story to this epic', new_epic_story_path(epic), class: 'button radius small'
   .two.columns
-= render partial: 'stories/summary_stories', object: epic.stories
+- if epic.stories.any?
+  = render partial: 'stories/summary_stories', object: epic.stories
+- else
+  %p There are no stories to display.

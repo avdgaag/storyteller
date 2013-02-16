@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214143222) do
+ActiveRecord::Schema.define(:version => 20130215160343) do
 
   create_table "comments", :force => true do |t|
     t.text     "body",             :null => false
@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(:version => 20130214143222) do
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "epics", :force => true do |t|
-    t.string   "title",      :null => false
+    t.string   "title",                        :null => false
     t.text     "body"
-    t.integer  "author_id",  :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "author_id",                    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "stories_count", :default => 0
   end
 
   add_index "epics", ["author_id"], :name => "index_epics_on_author_id"

@@ -5,7 +5,7 @@ class EpicsController < ApplicationController
   respond_to :html
 
   def index
-    @epics = Epic.scoped
+    @epics = Epic.scoped.decorate
     respond_with @epics
   end
 

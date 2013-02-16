@@ -1,6 +1,8 @@
 = simple_form_for @epic do |f|
-  .inputs
+  %fieldset
+    %legend Content
     = f.input :title
     = f.input :body
   .actions
-    = f.submit
+    = f.submit class: 'button radius'
+    = link_to_back

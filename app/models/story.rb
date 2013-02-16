@@ -9,7 +9,7 @@ class Story < ActiveRecord::Base
   has_many :pending_requirements, class_name: 'Requirement', conditions: 'completed_at is null'
   has_many :done_requirements, class_name: 'Requirement', conditions: 'completed_at is not null'
   belongs_to :owner, class_name: 'User'
-  belongs_to :epic
+  belongs_to :epic, counter_cache: true
 
   scope :by_date, order('created_at desc')
   scope :done,    where('completed_at is not null')
