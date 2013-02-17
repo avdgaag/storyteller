@@ -7,3 +7,9 @@ pre.only_a {
 pre.only_b {
   background-color: #e1ffe1;
 }
+
+pre.body, #story_body {
+  font-family: 'Menlo', monospace;
+  white-space: pre-wrap;
+  line-height: 130%;
+}
