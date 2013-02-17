@@ -42,7 +42,4 @@
       = simple_form_for story do |f|
         = f.association :owner, label_method: :email
         = f.submit 'Set Owner'
-      - if story.owner.present?
-        Waiting for #{story.owner.email}
-      - else
-        Not assigned to anyone
+      = story.owner

@@ -11,19 +11,19 @@ Feature: Waiting for user
 
   Scenario: A story has no owner
     When I go to user story "Foo bar"
-    Then I should see "Not assigned to anyone"
+    Then I should see "Unassigned"
 
   Scenario: Set story owner
     When I go to user story "Foo bar"
     And I assign user "baz@qux.com" as owner
     Then I should see a flash notice
-    And I should see "Waiting for baz@qux.com"
-    And I should not see "Not assigned to anyone"
+    And I should see "baz@qux.com"
+    And I should not see "Unassigned"
 
   Scenario: Remove story owner
     Given user story "Foo bar" is assigned to user "baz@qux.com"
     When I go to user story "Foo bar"
     And I remove the story owner
     Then I should see a flash notice
-    And I should see "Not assigned to anyone"
+    And I should see "Unassigned"
 

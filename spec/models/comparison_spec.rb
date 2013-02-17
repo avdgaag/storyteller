@@ -29,9 +29,9 @@ describe Comparison do
       story.update_attribute :body, "foo\nbaz"
       diff = described_class.new(story_id: story.id, left: 1, right: 2).diff
       expect(diff).to eql(<<-DIFF)
-<pre class="match">foo</pre>
-<pre class="only_a">bar</pre>
-<pre class="only_b">baz</pre>
+<span>foo</span>
+<del>bar</del>
+<ins>baz</ins>
 DIFF
     end
   end
