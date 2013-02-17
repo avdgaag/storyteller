@@ -1,2 +1,4 @@
 %li.event[version]
-  changed by #{version.user.email} #{time_ago_in_words version.created_at} ago
+  Changed by #{version.user.email}
+  #{time_ago_in_words version.created_at} ago
+  (#{link_to 'compare', story_comparison_path(version.versioned, version.number - 1, version.number), rel: 'compare'})

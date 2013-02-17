@@ -15,12 +15,12 @@ Feature: User story versioning
   Scenario: Create a new version
     When I edit user story "Foo bar":
       | Body | Lorem ipsum |
-    Then I should see "Previous versions"
+    Then I should see "Changed by foo@bar.com"
 
-  Scenario: See latest changes
+  Scenario: See changes
     When I edit user story "Foo bar":
       | Body | Bla bla |
-    And I click "View latest changes"
+    And I click "compare"
     Then I should see "Comparing versions 1 and 2"
     And I should see "by foo@bar.com"
     And I should see "Lorem ipsum" was removed

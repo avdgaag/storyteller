@@ -44,12 +44,3 @@
         Waiting for #{story.owner.email}
       - else
         Not assigned to anyone
-
-    - if story.versions.count > 0
-      .panel
-        %h5 Previous versions (currently at #{story.version})
-        = link_to 'View latest changes', story_comparison_path(story, story.version - 1, story.version)
-        %h6 Older versions
-        %ol.versions
-          = render partial: 'vestal_versions/versions/version_log', collection: story.older_versions, story: story
-

@@ -1,5 +1,0 @@
-%li{ class: "version_log_#{version_log.number}" }
-  = version_log.number
-  = version_log.created_at
-  = version_log.user
-  = link_to 'compare', story_comparison_path(story_id: story.id, left: version_log.number, right: story.version), rel: 'compare'
