@@ -17,7 +17,12 @@ class Story < ActiveRecord::Base
   scope :owned_by, ->(user) { where(owner_id: user.id) }
 
   include PgSearch
-  pg_search_scope :search_by_title_and_body, against: [:title, :body]
+  pg_search_scope :search_by_title_and_body,
+    against: [:title, :body],
+    associated_against: {
+      comments:     [:body],
+      requirements: [:title]
+    }
 
   def self.search(query)
     base = scoped
