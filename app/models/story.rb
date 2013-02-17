@@ -1,5 +1,5 @@
 class Story < ActiveRecord::Base
-  versioned
+  versioned if: :textual_changes?
 
   attr_accessible :body, :title, :user_id, :updated_by, :owner_id, :epic_id
 
@@ -53,5 +53,9 @@ class Story < ActiveRecord::Base
     versions.reject do |version|
       version.number == version
     end
+  end
+
+  def textual_changes?
+    body_changed? || title_changed?
   end
 end
