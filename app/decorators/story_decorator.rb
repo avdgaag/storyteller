@@ -1,4 +1,4 @@
-class StoryDecorator < Draper::Decorator
+class StoryDecorator < ApplicationDecorator
   delegate_all
   decorates_association :comments
 
@@ -16,10 +16,6 @@ class StoryDecorator < Draper::Decorator
 
   def requirements_count
     h.pluralize source.requirements_count, 'requirement'
-  end
-
-  def haml_object_ref
-    model.class.to_s.underscore
   end
 
   def permalink
