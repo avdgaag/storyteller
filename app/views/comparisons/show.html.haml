@@ -8,4 +8,4 @@
   %li= button_to "Restore version #{comparison.right}", story_revertion_path(comparison.story, comparison.right), method: 'post', class: 'button radius alert small'
   %li= link_to 'Back', comparison.story, class: 'button radius secondary small'
 .diff
-  = comparison.diff
+  - code_block_with_line_numbers comparison.diff

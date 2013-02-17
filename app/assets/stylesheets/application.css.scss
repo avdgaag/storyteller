@@ -1,11 +1,19 @@
 @import "foundation";
 
-pre.only_a {
+pre del {
   background-color: #ffe1e1;
+  color: #900;
+  text-decoration: none;
 }
 
-pre.only_b {
+pre ins {
   background-color: #e1ffe1;
+  color: #090;
+  text-decoration: none;
+}
+
+pre.line_numbers {
+  color: #999;
 }
 
 pre.body, #story_body {

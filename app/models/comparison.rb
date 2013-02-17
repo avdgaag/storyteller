@@ -3,6 +3,18 @@ require 'diff/lcs/htmldiff'
 class Comparison
   attr_reader :left, :right, :story_id, :output
 
+  class Callbacks < Diff::LCS::HTMLDiff::Callbacks
+    def htmlize(element, css_class)
+      element = "&nbsp;" if element.empty?
+      case css_class
+      when :only_a_class then "<del>#{element}</del>\n"
+      when :only_b_class then "<ins>#{element}</ins>\n"
+      else
+        "<span>#{element}</span>\n"
+      end
+    end
+  end
+
   def initialize(options = {})
     @story_id = options.fetch(:story_id)
     @left     = options.fetch(:left).to_i
@@ -30,7 +42,7 @@ class Comparison
   private
 
   def traverse_sequences_callback
-    @callbacks ||= Diff::LCS::HTMLDiff::Callbacks.new(output)
+    @callbacks ||= Callbacks.new(output)
   end
 
   def lines_left
