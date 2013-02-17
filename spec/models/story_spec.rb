@@ -22,6 +22,55 @@ describe Story do
     end
   end
 
+  describe '#search' do
+    let(:scope) { double 'scope' }
+
+    before do
+      described_class.should_receive(:scoped).and_return(scope)
+    end
+
+    subject { described_class.search(query) }
+
+    context 'when query is blank' do
+      let(:query) { '' }
+
+      it 'returns regular scope' do
+        expect(subject).to eql(scope)
+      end
+    end
+
+    context 'when searching for a string' do
+      let(:query) { 'foo' }
+
+      it 'returns regular scope' do
+        scope.should_receive(:search_by_title_and_body).with('foo').and_return('bar')
+        expect(subject).to eql('bar')
+      end
+    end
+
+    context 'when searching for a completion state' do
+      let(:query) { 'complete:true foo' }
+
+      it 'scopes searches on done' do
+        scope.should_receive(:done).and_return(scope)
+        scope.should_receive(:search_by_title_and_body).with('foo').and_return('bar')
+        expect(subject).to eql('bar')
+      end
+    end
+
+    context 'when searching for an owner' do
+      let(:user)  { double 'user' }
+      let(:query) { 'owner:foo@bar.com foo' }
+
+      it 'scopes searches on done' do
+        User.should_receive(:find_by_email).with('foo@bar.com').and_return(user)
+        scope.should_receive(:owned_by).with(user).and_return(scope)
+        scope.should_receive(:search_by_title_and_body).with('foo').and_return('bar')
+        expect(subject).to eql('bar')
+      end
+    end
+  end
+
   describe '#complete' do
     let(:story)       { create :story, :incomplete }
     let(:requirement) { create :requirement, :pending, story: story }

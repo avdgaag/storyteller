@@ -40,7 +40,7 @@ class Story < ActiveRecord::Base
       query.sub! $&, ''
     end
     return base if query.blank?
-    base.search_by_title_and_body(query)
+    base.search_by_title_and_body(query.strip)
   end
 
   def events
