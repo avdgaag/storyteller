@@ -54,12 +54,6 @@ class Story < ActiveRecord::Base
     save!
   end
 
-  def older_versions
-    versions.reject do |version|
-      version.number == version
-    end
-  end
-
   def textual_changes?
     body_changed? || title_changed?
   end
