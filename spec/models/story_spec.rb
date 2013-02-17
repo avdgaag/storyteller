@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe Story do
   it { should validate_presence_of(:title) }
-  it { should have_many(:comments) }
+  it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:pending_requirements) }
   it { should have_many(:done_requirements) }
-  it { should have_many(:requirements) }
+  it { should have_many(:requirements).dependent(:destroy) }
   it { should belong_to(:owner) }
   it { should belong_to(:epic) }
 
