@@ -19,6 +19,10 @@ class Comparison
     story.versions.at(right).user
   end
 
+  def created_at
+    story.versions.at(right).created_at
+  end
+
   def story
     @story ||= Story.find(story_id)
   end
