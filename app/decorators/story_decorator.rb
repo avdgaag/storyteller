@@ -1,6 +1,7 @@
 class StoryDecorator < ApplicationDecorator
   delegate_all
   decorates_association :comments
+  decorates_association :epic
 
   def completed_at
     if source.completed_at.nil?
@@ -20,5 +21,10 @@ class StoryDecorator < ApplicationDecorator
 
   def permalink
     h.link_to title, source, rel: 'bookmark'
+  end
+
+  def owner
+    return 'Unassigned' unless source.owner
+    source.owner.email
   end
 end

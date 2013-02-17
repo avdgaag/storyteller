@@ -4,7 +4,7 @@
 %ul.epics.block-grid.three-up
   - epics.each do |epic|
     %li[epic]
-      = epic.permalink
-      %footer
-        = epic.stories_count
-      = markdown epic.body
+      %h4.subheader
+        = epic.permalink
+        %small (#{epic.stories_count})
+      = markdown truncate(epic.body, length: 130)

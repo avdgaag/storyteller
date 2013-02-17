@@ -2,6 +2,8 @@
   .eight.columns
     %div[story]
       %h1= story.title
+      - if story.epic
+        %p Part of the epic #{story.epic.permalink}
       - code_block_with_line_numbers story.body
 
     %h2.subheader Discuss
