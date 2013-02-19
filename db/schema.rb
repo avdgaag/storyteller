@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215160343) do
+ActiveRecord::Schema.define(:version => 20130217181913) do
 
   create_table "comments", :force => true do |t|
     t.text     "body",             :null => false
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(:version => 20130215160343) do
   end
 
   add_index "epics", ["author_id"], :name => "index_epics_on_author_id"
+
+  create_table "projects", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "owner_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "projects", ["owner_id"], :name => "index_projects_on_owner_id"
 
   create_table "requirements", :force => true do |t|
     t.string   "title",        :null => false

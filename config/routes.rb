@@ -1,4 +1,6 @@
 Storyteller::Application.routes.draw do
+  resources :projects
+
   resources :epics do
     resources :stories, only: [:new, :create]
   end

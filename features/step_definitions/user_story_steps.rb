@@ -11,7 +11,9 @@ Given /^there (?:is|are) (-?\d+) user stor(?:ies|y)$/ do |n|
 end
 
 When /^I go to the user stories page$/ do
-  visit '/stories'
+  within 'nav.top-bar' do
+    click_link 'Stories'
+  end
 end
 
 When /^I go to (user story ".*?")$/ do |story|

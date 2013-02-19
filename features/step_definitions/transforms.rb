@@ -22,6 +22,10 @@ Transform /^me$/ do |str|
   @my_account
 end
 
+Transform /^project "(.*?)"$/ do |title|
+  Project.find_by_title! title
+end
+
 Transform /^epic "(.*?)"$/ do |title|
   Epic.find_by_title! title
 end

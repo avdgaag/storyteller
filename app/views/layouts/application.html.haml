@@ -22,6 +22,9 @@
               %li= link_to 'Stories', stories_path
               %li= link_to 'Epics', epics_path
             %ul.right
+              %li= link_to 'Create project', new_project_path
+              - Project.find_each do |project|
+                %li= link_to project.title, project
               - if user_signed_in?
                 %li.has-dropdown
                   = link_to current_user.email, edit_user_registration_path
