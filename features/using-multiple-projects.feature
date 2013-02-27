@@ -3,6 +3,7 @@ Feature: Using multiple projects
   I want to work in multiple projects
   So I can better organise my workflow
 
+<<<<<<< HEAD
   Background:
     Given I have an account with "foo@bar.com"
     And I am signed in
@@ -52,3 +53,10 @@ Feature: Using multiple projects
     Then I should see 0 user stories
     When I activate project "My first project"
     Then I should see 1 user stories
+=======
+  Scenario: Create a new project
+  Scenario: Project description on home page
+  Scenario: Switching projects
+  Scenario: Only showing project content
+
+>>>>>>> Start with new acceptance test
