@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   def find_project
     if params[:project_id]
       @current_project = Project.find(params[:project_id])
+      cookies['last_active_project_id'] = params[:project_id]
     end
   end
 end

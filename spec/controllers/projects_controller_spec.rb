@@ -4,6 +4,29 @@ describe ProjectsController do
   let(:user) { create :user, :confirmed }
   before { sign_in :user, user }
 
+  describe 'GET last_active' do
+    let(:project) { build_stubbed :project, id: '9' }
+
+    before do
+      Project.stub!(:find).with('9').and_return(project)
+      controller.stub!(:cookies).and_return(cookies)
+      get :last_active
+    end
+
+    context 'when last active project cookie is set' do
+      let(:cookies) { { 'last_active_project_id' => '9' } }
+      it { should redirect_to('/projects/9/stories') }
+    end
+
+    context 'when no cookie is set' do
+      let(:cookies) { { } }
+      it { should render_template('index') }
+      it { should respond_with(:success) }
+      it { should_not set_the_flash }
+      it { should assign_to(:projects) }
+    end
+  end
+
   describe 'GET index' do
     describe 'routing' do
       it { expect(get: '/projects').to route_to('projects#index') }

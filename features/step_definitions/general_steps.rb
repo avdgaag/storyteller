@@ -1,3 +1,7 @@
+When /^I go to the home page$/ do
+  visit '/'
+end
+
 When /^I click "(.*?)"$/ do |link|
   click_link link
 end

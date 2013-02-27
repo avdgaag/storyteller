@@ -22,6 +22,10 @@ describe StoriesController do
       it { should respond_with(:success) }
       it { should assign_to(:stories) }
       it { should_not set_the_flash }
+
+      it 'remembers the last active project in a cookie' do
+        expect(cookies['last_active_project_id']).to eql('9')
+      end
     end
 
     it 'uses filters as scopes' do

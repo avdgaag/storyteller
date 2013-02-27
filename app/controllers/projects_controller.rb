@@ -1,8 +1,18 @@
 class ProjectsController < ApplicationController
+  skip_before_filter :find_project
   before_filter :authenticate_user!
 
   expose :project
   respond_to :html
+
+  def last_active
+    if cookies['last_active_project_id']
+      redirect_to [Project.find(cookies['last_active_project_id']), :stories]
+    else
+      @projects = Project.scoped.decorate
+      render action: 'index'
+    end
+  end
 
   def index
     @projects = Project.scoped.decorate

@@ -18,7 +18,7 @@ Storyteller::Application.routes.draw do
   devise_for :users, path: 'account'
 
   authenticated :user do
-    root to: 'projects#index'
+    root to: 'projects#last_active'
   end
 
   devise_scope :user do

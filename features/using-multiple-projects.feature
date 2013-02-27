@@ -20,6 +20,15 @@ Feature: Using multiple projects
     And I go to the user stories page
     Then I should see "Lorem ipsum project description"
 
+  Scenario: Last active project
+    Given the following projects exist:
+      | title             | description                       |
+      | My first project  | Lorem ipsum project 1 description |
+      | My second project | Lorem ipsum project 2 description |
+    When I activate project "My first project"
+    And I go to the home page
+    Then I should see "My first project"
+
   Scenario: Switching projects
     Given the following projects exist:
       | title             | description                       |
