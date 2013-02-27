@@ -1,5 +1,5 @@
 %div
-  = link_to 'Add new epic', new_epic_path, class: 'button radius'
+  = link_to 'Add new epic', new_project_epic_path(current_project), class: 'button radius'
 
 %ul.epics.block-grid.three-up
   - epics.each do |epic|

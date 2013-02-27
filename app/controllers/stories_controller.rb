@@ -6,43 +6,43 @@ class StoriesController < ApplicationController
   respond_to :html
 
   def index
-    @stories = Story.by_date
+    @stories = @current_project.stories.by_date
     @stories = @stories.send(params[:filter]) if %w[done pending].include? params[:filter]
     @stories = @stories.pending.owned_by(current_user) if params[:filter] == 'mine'
     @stories = @stories.search(params[:q]) if params[:q] && params[:q].present?
     @stories = @stories.page(params[:page]).decorate
-    respond_with @stories
+    respond_with @current_project, @stories
   end
 
   def show
-    @story = Story.find(params[:id]).decorate
-    respond_with @story
+    @story = @current_project.stories.find(params[:id]).decorate
+    respond_with @current_project, @story
   end
 
   def new
-    @story = Story.new
+    @story = @current_project.stories.new
     @story.epic = @epic if epic?
-    respond_with @story
+    respond_with @current_project, @story
   end
 
   def create
-    @story = Story.new(params[:story])
+    @story = @current_project.stories.new(params[:story])
     @story.epic = @epic if epic?
-    flash[:notice] = 'Story created' if @story.save
-    respond_with(@story)
+    flash[:notice] = '@current_project.stories created' if @story.save
+    respond_with @current_project, @story
   end
 
   def edit
-    @story = Story.find(params[:id])
-    respond_with @story
+    @story = @current_project.stories.find(params[:id])
+    respond_with @current_project, @story
   end
 
   def update
-    @story = Story.find(params[:id])
+    @story = @current_project.stories.find(params[:id])
     if @story.update_attributes(params[:story].merge(updated_by: current_user))
-      flash[:notice] = 'Story updated'
+      flash[:notice] = '@current_project.stories updated'
     end
-    respond_with @story
+    respond_with @current_project, @story
   end
 
   private

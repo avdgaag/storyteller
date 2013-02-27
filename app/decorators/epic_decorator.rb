@@ -3,7 +3,7 @@ class EpicDecorator < ApplicationDecorator
   decorates_association :stories
 
   def permalink
-    h.link_to title, source, rel: 'bookmark'
+    h.link_to title, [source.project, source], rel: 'bookmark'
   end
 
   def stories_count

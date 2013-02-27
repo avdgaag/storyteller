@@ -16,7 +16,8 @@ Feature: Using multiple projects
     Given the following projects exist:
       | title          | description                     |
       | My new project | Lorem ipsum project description |
-    When I go to the user stories page
+    When I activate project "My new project"
+    And I go to the user stories page
     Then I should see "Lorem ipsum project description"
 
   Scenario: Switching projects
@@ -25,6 +26,8 @@ Feature: Using multiple projects
       | My first project  | Lorem ipsum project 1 description |
       | My second project | Lorem ipsum project 2 description |
     When I activate project "My first project"
+    Then I should see "Lorem ipsum project 1 description"
+    When I activate project "My second project"
     Then I should see "Lorem ipsum project 2 description"
 
   Scenario: Only showing project content
@@ -39,4 +42,4 @@ Feature: Using multiple projects
     And I go to the user stories page
     Then I should see 0 user stories
     When I activate project "My first project"
-    Then I should see 0 user stories
+    Then I should see 1 user stories

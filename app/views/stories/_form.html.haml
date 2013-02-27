@@ -1,4 +1,4 @@
-= simple_form_for(epic? ? [story.epic, story] : story) do |f|
+= simple_form_for(epic? ? [current_project, story.epic, story] : [current_project, story]) do |f|
   %fieldset
     %legend Content
     = f.input :title

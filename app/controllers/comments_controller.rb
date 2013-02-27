@@ -9,14 +9,14 @@ class CommentsController < ApplicationController
     else
       flash[:comment] = @comment
     end
-    redirect_to commentable
+    redirect_to [current_project, commentable]
   end
 
   private
 
   def commentable
     @commentable ||= if params[:story_id]
-      Story.find(params[:story_id])
+      current_project.stories.find(params[:story_id])
     end
   end
 end

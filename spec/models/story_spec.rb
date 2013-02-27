@@ -8,6 +8,7 @@ describe Story do
   it { should have_many(:requirements).dependent(:destroy) }
   it { should belong_to(:owner) }
   it { should belong_to(:epic) }
+  it { should belong_to(:project) }
 
   describe 'versioning' do
     let(:story) { create :story }

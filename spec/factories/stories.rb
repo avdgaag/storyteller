@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :story do
     title 'My example story'
     body 'Lorem ipsum dolor sit amet'
+    project
 
     factory :invalid_story do
       title ''

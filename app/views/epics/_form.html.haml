@@ -1,4 +1,4 @@
-= simple_form_for @epic do |f|
+= simple_form_for [current_project, @epic] do |f|
   %fieldset
     %legend Content
     = f.input :title

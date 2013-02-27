@@ -4,8 +4,8 @@
   Changes by #{comparison.author.email}
   #{time_ago_in_words comparison.created_at} ago
 %ul.inline-list
-  %li= button_to "Restore version #{comparison.left}", story_revertion_path(comparison.story, comparison.left), method: 'post', class: 'button radius alert small'
-  %li= button_to "Restore version #{comparison.right}", story_revertion_path(comparison.story, comparison.right), method: 'post', class: 'button radius alert small'
-  %li= link_to 'Back', comparison.story, class: 'button radius secondary small'
+  %li= button_to "Restore version #{comparison.left}", project_story_revertion_path(comparison.story.project, comparison.story, comparison.left), method: 'post', class: 'button radius alert small'
+  %li= button_to "Restore version #{comparison.right}", project_story_revertion_path(comparison.story.project, comparison.story, comparison.right), method: 'post', class: 'button radius alert small'
+  %li= link_to 'Back', [comparison.story.project, comparison.story], class: 'button radius secondary small'
 .diff
   - code_block_with_line_numbers comparison.diff

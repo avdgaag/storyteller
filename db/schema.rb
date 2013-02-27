@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130217181913) do
+ActiveRecord::Schema.define(:version => 20130219162801) do
 
   create_table "comments", :force => true do |t|
     t.text     "body",             :null => false
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(:version => 20130217181913) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "stories_count", :default => 0
+    t.integer  "project_id"
   end
 
   add_index "epics", ["author_id"], :name => "index_epics_on_author_id"
+  add_index "epics", ["project_id"], :name => "index_epics_on_project_id"
 
   create_table "projects", :force => true do |t|
     t.string   "title"
@@ -67,10 +69,12 @@ ActiveRecord::Schema.define(:version => 20130217181913) do
     t.integer  "requirements_count", :default => 0
     t.integer  "owner_id"
     t.integer  "epic_id"
+    t.integer  "project_id"
   end
 
   add_index "stories", ["epic_id"], :name => "index_stories_on_epic_id"
   add_index "stories", ["owner_id"], :name => "index_stories_on_owner_id"
+  add_index "stories", ["project_id"], :name => "index_stories_on_project_id"
   add_index "stories", ["user_id"], :name => "index_stories_on_user_id"
 
   create_table "users", :force => true do |t|

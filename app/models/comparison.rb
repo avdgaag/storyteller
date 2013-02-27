@@ -1,7 +1,7 @@
 require 'diff/lcs/htmldiff'
 
 class Comparison
-  attr_reader :left, :right, :story_id, :output
+  attr_reader :left, :right, :story_id, :output, :project_id
 
   class Callbacks < Diff::LCS::HTMLDiff::Callbacks
     def htmlize(element, css_class)
@@ -16,10 +16,11 @@ class Comparison
   end
 
   def initialize(options = {})
-    @story_id = options.fetch(:story_id)
-    @left     = options.fetch(:left).to_i
-    @right    = options.fetch(:right).to_i
-    @output   = options.fetch(:output, '')
+    @story_id   = options.fetch(:story_id)
+    @project_id = options.fetch(:project_id)
+    @left       = options.fetch(:left).to_i
+    @right      = options.fetch(:right).to_i
+    @output     = options.fetch(:output, '')
   end
 
   def diff
@@ -36,7 +37,7 @@ class Comparison
   end
 
   def story
-    @story ||= Story.find(story_id)
+    @story ||= Project.find(project_id).stories.find(story_id)
   end
 
   private

@@ -7,6 +7,8 @@ Feature: Waiting for user
     Given a user "baz@qux.com"
     And I have an account with "foo@bar.com"
     And I am signed in
+    And I have a project titled "My Project"
+    And I have activated project "My Project"
     And a user story titled "Foo bar"
 
   Scenario: A story has no owner

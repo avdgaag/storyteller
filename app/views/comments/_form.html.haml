@@ -1,5 +1,5 @@
 %h3.subheader Add a comment
-= simple_form_for [commentable, (flash[:comment] || commentable.comments.build)] do |f|
+= simple_form_for [commentable.project, commentable, (flash[:comment] || commentable.comments.build)] do |f|
   .inputs
     = f.input :body, input_html: { rows: 10 }
   .actions
