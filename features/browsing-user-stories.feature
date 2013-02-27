@@ -6,6 +6,8 @@ Feature: Browsing user stories
   Background:
     Given I have an account with "foo@bar.com"
     And I am signed in
+    And I have a project titled "My Project"
+    And I have activated project "My Project"
 
   Scenario: There are no user stories yet
     When I go to the user stories page

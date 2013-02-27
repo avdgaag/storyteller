@@ -5,43 +5,43 @@ class EpicsController < ApplicationController
   respond_to :html
 
   def index
-    @epics = Epic.scoped.decorate
-    respond_with @epics
+    @epics = @current_project.epics.decorate
+    respond_with @current_project, @epics
   end
 
   def show
-    @epic = Epic.find(params[:id]).decorate
-    respond_with @epic
+    @epic = @current_project.epics.find(params[:id]).decorate
+    respond_with @current_project, @epic
   end
 
   def edit
-    @epic = Epic.find(params[:id])
-    respond_with @epic
+    @epic = @current_project.epics.find(params[:id])
+    respond_with @current_project, @epic
   end
 
   def new
-    @epic = Epic.new
-    respond_with @epic
+    @epic = @current_project.epics.new
+    respond_with @current_project, @epic
   end
 
   def create
-    @epic = Epic.new(params[:epic])
+    @epic = @current_project.epics.new(params[:epic])
     @epic.author = current_user
     flash[:notice] = 'Epic created' if @epic.save
-    respond_with @epic
+    respond_with @current_project, @epic
   end
 
   def update
-    @epic = Epic.find(params[:id])
+    @epic = @current_project.epics.find(params[:id])
     if @epic.update_attributes(params[:epic])
       flash[:notice] = 'Epic updated'
     end
-    respond_with @epic
+    respond_with @current_project, @epic
   end
 
   def destroy
-    @epic = Epic.find(params[:id])
+    @epic = @current_project.epics.find(params[:id])
     flash[:notice] = 'Epic destroyed' if @epic.destroy
-    respond_with @epic
+    respond_with @current_project, @epic
   end
 end

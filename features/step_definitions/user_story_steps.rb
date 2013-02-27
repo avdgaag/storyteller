@@ -1,21 +1,23 @@
 Given /^a (|completed|incomplete) ?user story titled "(.*?)"$/ do |trait, title|
   if trait.blank?
-    FactoryGirl.create :story, title: title
+    FactoryGirl.create :story, title: title, project: @current_project
   else
-    FactoryGirl.create :story, trait.to_sym, title: title
+    FactoryGirl.create :story, trait.to_sym, title: title, project: @current_project
   end
 end
 
 Given /^there (?:is|are) (-?\d+) user stor(?:ies|y)$/ do |n|
-  FactoryGirl.create_list :story, n
+  FactoryGirl.create_list :story, n, project: @current_project
 end
 
 When /^I go to the user stories page$/ do
-  visit '/stories'
+  within 'nav.top-bar' do
+    click_link 'Stories'
+  end
 end
 
 When /^I go to (user story ".*?")$/ do |story|
-  visit "/stories/#{story.to_param}"
+  visit "/projects/#{story.project.to_param}/stories/#{story.to_param}"
 end
 
 When /^I open the first user story$/ do
@@ -23,7 +25,7 @@ When /^I open the first user story$/ do
 end
 
 When /^I go to create a new user story$/ do
-  visit '/stories'
+  click_link 'Stories'
   click_link 'Write new user story'
 end
 
@@ -40,7 +42,7 @@ When /^I create an invalid user story$/ do
 end
 
 When /^I edit (user story ".*?"):$/ do |story, table|
-  visit "/stories/#{story.to_param}/edit"
+  visit "/projects/#{story.project.to_param}/stories/#{story.to_param}/edit"
   table.rows_hash.each do |attr, value|
     if attr == 'Epic'
       select value, from: attr

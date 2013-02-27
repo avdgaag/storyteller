@@ -2,6 +2,7 @@ class StoryDecorator < ApplicationDecorator
   delegate_all
   decorates_association :comments
   decorates_association :epic
+  decorates_association :project
 
   def completed_at
     if source.completed_at.nil?
@@ -20,7 +21,7 @@ class StoryDecorator < ApplicationDecorator
   end
 
   def permalink
-    h.link_to title, source, rel: 'bookmark'
+    h.link_to title, [source.project, source], rel: 'bookmark'
   end
 
   def owner

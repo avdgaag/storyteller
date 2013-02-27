@@ -9,18 +9,18 @@ class RequirementsController < ApplicationController
     else
       flash[:requirement] = @requirement
     end
-    redirect_to @story
+    redirect_to [current_project, @story]
   end
 
   def destroy
     @requirement = @story.requirements.find(params[:id])
     @requirement.destroy
-    redirect_to @story, notice: 'Requirement removed'
+    redirect_to [current_project, @story], notice: 'Requirement removed'
   end
 
   private
 
   def find_story
-    @story = Story.find(params[:story_id])
+    @story = current_project.stories.find(params[:story_id])
   end
 end

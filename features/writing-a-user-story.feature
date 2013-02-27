@@ -6,6 +6,8 @@ Feature: Writing a user story
   Background:
     Given I have an account with "foo@bar.com"
     And I am signed in
+    And I have a project titled "My Project"
+    And I have activated project "My Project"
 
   Scenario: Write a new user story
     When I go to create a new user story

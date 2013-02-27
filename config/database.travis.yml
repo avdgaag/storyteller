@@ -1,0 +1,7 @@
+test: &test
+  database: storyteller_test
+  adapter: postgresql
+  username: postgres
+
+cucumber:
+  <<: *test

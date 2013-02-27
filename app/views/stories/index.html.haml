@@ -1,14 +1,17 @@
+%h2= current_project.title
+.project_description
+  = markdown current_project.description
 .row
   .four.columns
-    = filters :stories_path, 'Done' => 'done', 'Pending' => 'pending', 'Mine' => 'mine'
+    = filters :project_stories_path, 'Done' => 'done', 'Pending' => 'pending', 'Mine' => 'mine'
   .five.columns
-    = form_tag({ url: stories_path }, { method: 'get', class: 'row collapse' }) do
+    = form_tag({ url: project_stories_path(current_project) }, { method: 'get', class: 'row collapse' }) do
       .nine.columns
         = text_field_tag :q, params[:q], placeholder: 'Search user stories'
       .three.columns
         = submit_tag 'Search', class: 'button expand postfix'
   .three.columns
-    = link_to 'Write new user story', new_story_path, class: 'button medium radius'
+    = link_to 'Write new user story', new_project_story_path(current_project), class: 'button medium radius'
 - if stories.any?
   = render partial: 'stories/summary_stories', object: stories
   = paginate stories

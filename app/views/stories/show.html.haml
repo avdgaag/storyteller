@@ -13,9 +13,9 @@
     = render partial: 'comments/form', locals: { commentable: story }
   .four.columns
     %ul.inline-list
-      %li= button_to 'Mark as ready', story_completion_path(story), class: 'button radius small'
-      %li= link_to 'Edit', edit_story_path(story), class: 'button small radius'
-      %li= link_to 'Back', stories_path, class: 'button radius secondary small'
+      %li= button_to 'Mark as ready', project_story_completion_path(current_project, story), class: 'button radius small'
+      %li= link_to 'Edit', edit_project_story_path(current_project, story), class: 'button small radius'
+      %li= link_to 'Back', project_stories_path(current_project), class: 'button radius secondary small'
 
     .panel
       %h5= story.requirements_count
@@ -25,21 +25,21 @@
             %label
               = check_box_tag "done_#{req.id}", "1", true
               = req.title
-            = button_to 'Remove', [story, req], method: 'delete'
+            = button_to 'Remove', [current_project, story, req], method: 'delete'
         - story.pending_requirements.each do |req|
           %li.pending[req]
             %label
               = check_box_tag "done_#{req.id}", "1", false
               = req.title
-            = button_to 'Remove', [story, req], method: 'delete'
-      = simple_form_for [story, story.pending_requirements.build] do |f|
+            = button_to 'Remove', [current_project, story, req], method: 'delete'
+      = simple_form_for [current_project, story, story.pending_requirements.build] do |f|
         .row.collapse
           = f.input :title, input_html: { placeholder: 'Add requirement', class: 'nine columns' }
           .three.columns
             = f.submit 'Add', class: 'three columns button expand postfix'
 
     .panel
-      = simple_form_for story do |f|
+      = simple_form_for [current_project, story] do |f|
         = f.association :owner, label_method: :email
         = f.submit 'Set Owner'
       = story.owner

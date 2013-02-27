@@ -6,6 +6,8 @@ Feature: Searching user stories
   Background:
     Given I have an account with "foo@bar.com"
     And I am signed in
+    And I have a project titled "My Project"
+    And I have activated project "My Project"
 
   Scenario: Searching nothing
     When I go to the user stories page

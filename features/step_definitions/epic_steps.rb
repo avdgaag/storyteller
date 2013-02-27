@@ -1,5 +1,5 @@
 Given /^an epic titled "(.*?)"$/ do |title|
-  FactoryGirl.create :epic, title: title
+  FactoryGirl.create :epic, title: title, project: @current_project
 end
 
 Given /^(epic ".*?") contains (user story ".*?")$/ do |epic, story|
@@ -7,7 +7,7 @@ Given /^(epic ".*?") contains (user story ".*?")$/ do |epic, story|
 end
 
 When /^I edit (epic ".*?"):$/ do |epic, table|
-  visit "/epics/#{epic.to_param}/edit"
+  visit "/projects/#{@current_project.to_param}/epics/#{epic.to_param}/edit"
   table.rows_hash.each do |attr, value|
     fill_in attr, with: value
   end
@@ -15,12 +15,12 @@ When /^I edit (epic ".*?"):$/ do |epic, table|
 end
 
 When /^I destroy (epic ".*?")$/ do |epic|
-  visit "/epics/#{epic.to_param}"
+  visit "/projects/#{epic.project.to_param}/epics/#{epic.to_param}"
   click_button 'Destroy'
 end
 
 When /^I create a new epic:$/ do |table|
-  visit '/epics'
+  visit "/projects/#{@current_project.to_param}/epics"
   click_link 'Add new epic'
   table.rows_hash.each do |attr, value|
     fill_in attr, with: value
@@ -29,11 +29,11 @@ When /^I create a new epic:$/ do |table|
 end
 
 When /^I go to the epics page$/ do
-  visit '/epics'
+  visit "/projects/#{@current_project.to_param}/epics"
 end
 
 When /^I go to (epic ".*?")$/ do |epic|
-  visit "/epics/#{epic.to_param}"
+  visit "/projects/#{@current_project.to_param}/epics/#{epic.to_param}"
 end
 
 When /^I create a valid user story in the epic$/ do

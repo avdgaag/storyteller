@@ -3,9 +3,9 @@
 .row
   .body.nine.columns= markdown epic.body
   .three.columns
-    = button_to 'Destroy', epic, method: :delete, class: 'button alert radius small'
-    = link_to 'Add user story to this epic', new_epic_story_path(epic), class: 'button radius small'
-    = link_to 'Edit', [:edit, epic], class: 'button radius small'
+    = button_to 'Destroy', [epic.project, epic], method: :delete, class: 'button alert radius small'
+    = link_to 'Add user story to this epic', new_project_epic_story_path(current_project, epic), class: 'button radius small'
+    = link_to 'Edit', [:edit, epic.project, epic], class: 'button radius small'
 - if epic.stories.any?
   %h2.subheader Included stories
   = render partial: 'stories/summary_stories', object: epic.stories
