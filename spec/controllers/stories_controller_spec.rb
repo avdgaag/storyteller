@@ -40,7 +40,7 @@ describe StoriesController do
   end
 
   describe 'GET "show"' do
-    let(:story) { double }
+    let(:story) { double to_feature: 'foo bar', to_rb: 'ruby code' }
 
     describe 'routing' do
       it { expect(get: '/projects/9/stories/1').to route_to('stories#show', id: '1', project_id: '9') }
@@ -51,13 +51,33 @@ describe StoriesController do
       before do
         story.stub!(:decorate).and_return(story)
         project.stub_chain(:stories, :find).and_return(story)
-        get :show, id: '1', project_id: '9'
       end
 
-      it { should render_template('show') }
-      it { should respond_with(:success) }
-      it { should assign_to(:story).with(story) }
-      it { should_not set_the_flash }
+      describe 'as HTML' do
+        before { get :show, id: '1', project_id: '9' }
+        it { should render_template('show') }
+        it { should respond_with(:success) }
+        it { should assign_to(:story).with(story) }
+        it { should_not set_the_flash }
+      end
+
+      describe 'as .rb' do
+        before { get :show, id: '1', project_id: '9', format: 'rb' }
+
+        it 'renders story as plain text' do
+          expect(response.body).to eql('ruby code')
+          expect(response.content_type).to eql('text/plain')
+        end
+      end
+
+      describe 'as .feature' do
+        before { get :show, id: '1', project_id: '9', format: 'feature' }
+
+        it 'renders story as plain text' do
+          expect(response.body).to eql('foo bar')
+          expect(response.content_type).to eql('text/plain')
+        end
+      end
     end
   end
 

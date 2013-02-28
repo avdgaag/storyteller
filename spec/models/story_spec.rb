@@ -90,4 +90,18 @@ describe Story do
       expect { story.complete }.not_to change { requirement.completed_at }
     end
   end
+
+  describe '#to_feature' do
+    subject { build_stubbed(:story, body: 'Lorem ipsum').to_feature }
+    it { should eql('Lorem ipsum') }
+  end
+
+  describe 'to_rb' do
+    subject { build_stubbed(:story, body: 'Lorem ipsum') }
+
+    it 'uses CapybaraScenarioConverter to output a scenario' do
+      CapybaraScenarioConverter.should_receive(:new).with(subject).and_return(double(to_s: 'foo bar'))
+      expect(subject.to_rb).to eql('foo bar')
+    end
+  end
 end

@@ -16,6 +16,10 @@ When /^I go to the user stories page$/ do
   end
 end
 
+When /^I go to the "(.*?)" version of (user story ".*?")$/ do |format, story|
+  visit "/projects/#{story.project.to_param}/stories/#{story.to_param}.#{format}"
+end
+
 When /^I go to (user story ".*?")$/ do |story|
   visit "/projects/#{story.project.to_param}/stories/#{story.to_param}"
 end
