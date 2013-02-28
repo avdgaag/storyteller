@@ -6,6 +6,8 @@
         %p Part of the epic #{story.epic.permalink}
       - code_block_with_line_numbers story.body
 
+    %p Download as #{link_to 'Capybara scenario', project_story_path(story.project, story, format: 'rb')} or #{link_to 'Cucumber feature.', project_story_path(story.project, story, format: 'feature')}.
+
     %h2.subheader Discuss
     .events
       %ol

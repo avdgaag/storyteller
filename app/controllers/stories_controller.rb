@@ -3,7 +3,7 @@ class StoriesController < ApplicationController
   before_filter :find_epic
 
   expose :story
-  respond_to :html
+  respond_to :html, :feature, :rb
 
   def index
     @stories = @current_project.stories.by_date

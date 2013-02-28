@@ -58,4 +58,12 @@ class Story < ActiveRecord::Base
   def textual_changes?
     body_changed? || title_changed?
   end
+
+  def to_feature
+    body
+  end
+
+  def to_rb
+    CapybaraScenarioConverter.new(self).to_s
+  end
 end

@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  ActionController.add_renderer :feature do |obj, options|
+    self.response_body = obj.to_feature
+  end
+
+  ActionController.add_renderer :rb do |obj, options|
+    self.response_body = obj.to_rb
+  end
+
   private
 
   def find_project
