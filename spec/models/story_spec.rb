@@ -96,7 +96,7 @@ describe Story do
     it { should eql('Lorem ipsum') }
   end
 
-  describe 'to_rb' do
+  describe '#to_rb' do
     subject { build_stubbed(:story, body: 'Lorem ipsum') }
 
     it 'uses CapybaraScenarioConverter to output a scenario' do
