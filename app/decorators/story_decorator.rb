@@ -28,4 +28,8 @@ class StoryDecorator < ApplicationDecorator
     return 'Unassigned' unless source.owner
     source.owner.email
   end
+
+  def as_json(options)
+    source.as_json(options)
+  end
 end

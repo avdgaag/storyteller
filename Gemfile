@@ -57,6 +57,7 @@ group :test do
   gem "shoulda-matchers"
   # gem "capybara-webkit", "~> 0.14"
   gem "email_spec"
+  gem 'json_spec'
 end
 
 group :assets do
