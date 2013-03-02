@@ -58,6 +58,7 @@ group :test do
   # gem "capybara-webkit", "~> 0.14"
   gem "email_spec"
   gem 'json_spec'
+  gem 'equivalent-xml'
 end
 
 group :assets do

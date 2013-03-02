@@ -63,6 +63,10 @@ class Story < ActiveRecord::Base
     body
   end
 
+  def to_xml(options = {})
+    super options.reverse_merge(only: %w[title body completed_at])
+  end
+
   def to_rb
     CapybaraScenarioConverter.new(self).to_s
   end

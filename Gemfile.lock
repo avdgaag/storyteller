@@ -90,6 +90,8 @@ GEM
     email_spec (1.4.0)
       launchy (~> 2.1)
       mail (~> 2.2)
+    equivalent-xml (0.3.0)
+      nokogiri (>= 1.4.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
     execjs (1.4.0)
@@ -246,6 +248,7 @@ DEPENDENCIES
   diff-lcs
   draper
   email_spec
+  equivalent-xml
   factory_girl_rails (~> 4.2)
   haml
   haml-rails

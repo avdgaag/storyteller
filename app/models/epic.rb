@@ -9,4 +9,8 @@ class Epic < ActiveRecord::Base
   def as_json(options = {})
     super options.reverse_merge(only: %w[title body], include: { stories: { only: %w[title body completed_at] }})
   end
+
+  def to_xml(options = {})
+    super options.reverse_merge(only: %w[title body], include: { stories: { only: %w[title body completed_at] }})
+  end
 end

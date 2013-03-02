@@ -16,6 +16,11 @@ Feature: Exporting user story lists
 
   Scenario: Export titles to plain text
   Scenario: Export user stories to XML
+    When I go to epic "My epic"
+    And I click "Download as XML"
+    Then I should see user story "Foo bar" as XML
+    Then I should see user story "Bar baz" as XML
+
   Scenario: Export user stories to JSON
     When I go to epic "My epic"
     And I click "Download as JSON"

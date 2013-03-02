@@ -2,6 +2,11 @@ Then /^I should see (user story ".*?") as (plain text|XML|JSON|HTML|PDF)/ do |st
   case format
   when 'JSON' then
     expect(page.source).to include_json(story.to_json).at_path('stories')
+  when 'XML' then
+    any = Nokogiri::XML.parse(page.source).root.xpath('//epic/stories/story').any? do |source|
+      EquivalentXml.equivalent?(source, Nokogiri::XML.parse(story.to_xml).root)
+    end
+    expect(any).to be_true
   else
     raise 'Unknown format'
   end
