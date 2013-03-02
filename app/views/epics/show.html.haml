@@ -6,6 +6,12 @@
     = button_to 'Destroy', [epic.project, epic], method: :delete, class: 'button alert radius small'
     = link_to 'Add user story to this epic', new_project_epic_story_path(current_project, epic), class: 'button radius small'
     = link_to 'Edit', [:edit, epic.project, epic], class: 'button radius small'
+    %hr
+    %ul
+      %li= link_to 'Download as JSON', project_epic_path(epic.project, epic, format: 'json')
+      %li= link_to 'Download as XML', project_epic_path(epic.project, epic, format: 'xml')
+      %li= link_to 'Download as PDF', project_epic_path(epic.project, epic, format: 'pdf')
+      %li= link_to 'Download as plain text', project_epic_path(epic.project, epic, format: 'txt')
 - if epic.stories.any?
   %h2.subheader Included stories
   = render partial: 'stories/summary_stories', object: epic.stories

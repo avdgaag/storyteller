@@ -96,12 +96,18 @@ describe Story do
     it { should eql('Lorem ipsum') }
   end
 
-  describe 'to_rb' do
+  describe '#to_rb' do
     subject { build_stubbed(:story, body: 'Lorem ipsum') }
 
     it 'uses CapybaraScenarioConverter to output a scenario' do
       CapybaraScenarioConverter.should_receive(:new).with(subject).and_return(double(to_s: 'foo bar'))
       expect(subject.to_rb).to eql('foo bar')
+    end
+  end
+
+  describe '#to_txt' do
+    it 'contains title and body' do
+      expect(build_stubbed(:story).to_txt).to eql("My example story\n\nLorem ipsum dolor sit amet")
     end
   end
 end

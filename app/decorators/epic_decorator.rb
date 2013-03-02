@@ -9,4 +9,8 @@ class EpicDecorator < ApplicationDecorator
   def stories_count
     h.pluralize source.stories_count, 'story'
   end
+
+  def as_json(options)
+    source.as_json(options)
+  end
 end

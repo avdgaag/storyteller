@@ -51,12 +51,16 @@ group :development do
   # gem "better_errors"
 end
 
-group :test do
+group :test, :cucumber do
   gem "database_cleaner"
   gem "capybara", "~> 2.0"
   gem "shoulda-matchers"
   # gem "capybara-webkit", "~> 0.14"
   gem "email_spec"
+  gem 'json_spec'
+  gem 'equivalent-xml'
+  gem 'cucumber-rails', require: false
+  gem 'pdf-reader'
 end
 
 group :assets do
@@ -64,7 +68,7 @@ group :assets do
   # gem "bourbon"
 end
 
-gem 'cucumber-rails', require: false
+gem 'prawn'
 gem "devise"
 gem "yard-rails", require: false
 gem "haml"
