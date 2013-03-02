@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
     self.response_body = obj.to_rb
   end
 
+  ActionController.add_renderer :pdf do |obj, options|
+    send_data obj.to_pdf, filename: "#{obj.id}.pdf", type: 'application/pdf'
+  end
+
   private
 
   def find_project

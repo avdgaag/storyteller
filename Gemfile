@@ -59,6 +59,7 @@ group :test do
   gem "email_spec"
   gem 'json_spec'
   gem 'equivalent-xml'
+  gem 'pdf-reader'
 end
 
 group :assets do
@@ -67,6 +68,7 @@ group :assets do
 end
 
 gem 'cucumber-rails', require: false
+gem 'prawn'
 gem "devise"
 gem "yard-rails", require: false
 gem "haml"

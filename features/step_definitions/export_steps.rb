@@ -7,6 +7,9 @@ Then /^I should see (user story ".*?") as (plain text|XML|JSON|HTML|PDF)/ do |st
       EquivalentXml.equivalent?(source, Nokogiri::XML.parse(story.to_xml).root)
     end
     expect(any).to be_true
+  when 'PDF' then
+    text = PDF::Reader.new(StringIO.new(page.source)).pages.map(&:text).join("\n")
+    expect(text).to include(story.title)
   else
     raise 'Unknown format'
   end

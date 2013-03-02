@@ -2,7 +2,7 @@ class EpicsController < ApplicationController
   before_filter :authenticate_user!
 
   expose :epic
-  respond_to :html, :json, :xml
+  respond_to :html, :json, :xml, :pdf
 
   def index
     @epics = @current_project.epics.decorate

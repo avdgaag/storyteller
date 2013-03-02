@@ -27,5 +27,10 @@ Feature: Exporting user story lists
     Then I should see user story "Foo bar" as JSON
     Then I should see user story "Bar baz" as JSON
   Scenario: Export user stories to PDF
+    When I go to epic "My epic"
+    And I click "Download as PDF"
+    Then I should see user story "Foo bar" as PDF
+    Then I should see user story "Bar baz" as PDF
+
   Scenario: Export user stories to HTML
 

@@ -10,6 +10,7 @@
     %ul
       %li= link_to 'Download as JSON', project_epic_path(epic.project, epic, format: 'json')
       %li= link_to 'Download as XML', project_epic_path(epic.project, epic, format: 'xml')
+      %li= link_to 'Download as PDF', project_epic_path(epic.project, epic, format: 'pdf')
 - if epic.stories.any?
   %h2.subheader Included stories
   = render partial: 'stories/summary_stories', object: epic.stories
