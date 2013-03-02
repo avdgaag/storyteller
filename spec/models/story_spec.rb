@@ -104,4 +104,10 @@ describe Story do
       expect(subject.to_rb).to eql('foo bar')
     end
   end
+
+  describe '#to_txt' do
+    it 'contains title and body' do
+      expect(build_stubbed(:story).to_txt).to eql("My example story\n\nLorem ipsum dolor sit amet")
+    end
+  end
 end

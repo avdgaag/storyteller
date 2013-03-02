@@ -1,5 +1,7 @@
 Then /^I should see (user story ".*?") as (plain text|XML|JSON|HTML|PDF)/ do |story, format|
   case format
+  when 'plain text'
+    expect(page.source).to include(story.title, story.body)
   when 'JSON' then
     expect(page.source).to include_json(story.to_json).at_path('stories')
   when 'XML' then

@@ -74,4 +74,8 @@ class Story < ActiveRecord::Base
   def as_json(options = {})
     super options.reverse_merge(only: %w[title body completed_at])
   end
+
+  def to_txt
+    [title, body].join("\n\n")
+  end
 end

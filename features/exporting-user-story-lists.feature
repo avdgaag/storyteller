@@ -15,6 +15,11 @@ Feature: Exporting user story lists
     And epic "My epic" contains user story "Bar baz"
 
   Scenario: Export titles to plain text
+    When I go to epic "My epic"
+    And I click "Download as plain text"
+    Then I should see user story "Foo bar" as plain text
+    Then I should see user story "Bar baz" as plain text
+
   Scenario: Export user stories to XML
     When I go to epic "My epic"
     And I click "Download as XML"
