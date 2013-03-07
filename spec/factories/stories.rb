@@ -15,5 +15,15 @@ FactoryGirl.define do
     trait :completed do
       completed_at { 5.minutes.ago }
     end
+
+    trait :attached do
+      ignore do
+        attachments_count 1
+      end
+
+      after :create do |story, evaluator|
+        FactoryGirl.create_list(:attachment, evaluator.attachments_count, attachable: story)
+      end
+    end
   end
 end

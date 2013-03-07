@@ -8,6 +8,8 @@
 
     %p Download as #{link_to 'Capybara scenario', project_story_path(story.project, story, format: 'rb')} or #{link_to 'Cucumber feature.', project_story_path(story.project, story, format: 'feature')}.
 
+    = render partial: 'attachments/attachments', locals: { attachable: story }
+
     %h2.subheader Discuss
     .events
       %ol

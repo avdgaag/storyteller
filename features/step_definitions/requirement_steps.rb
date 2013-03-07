@@ -7,8 +7,10 @@ Given /^(user story ".*?") has a (done|pending) requirement "(.*?)"$/ do |story,
 end
 
 When /^I add requirement "(.*?)"$/ do |title|
-  fill_in 'requirement_title', with: title
-  click_button 'Add'
+  within '#new_requirement' do
+    fill_in 'requirement_title', with: title
+    click_button 'Add'
+  end
 end
 
 def find_requirement_by_title(title)

@@ -8,6 +8,7 @@ class Story < ActiveRecord::Base
   has_many :requirements, dependent: :destroy
   has_many :pending_requirements, class_name: 'Requirement', conditions: 'completed_at is null'
   has_many :done_requirements, class_name: 'Requirement', conditions: 'completed_at is not null'
+  has_many :attachments, as: :attachable, dependent: :destroy
   belongs_to :owner, class_name: 'User'
   belongs_to :epic, counter_cache: true
   belongs_to :project
@@ -45,7 +46,7 @@ class Story < ActiveRecord::Base
   end
 
   def events
-    (comments + versions).sort_by(&:created_at)
+    (comments + versions + attachments).select(&:persisted?).sort_by(&:created_at)
   end
 
   def complete

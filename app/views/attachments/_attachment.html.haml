@@ -1,0 +1,6 @@
+- attachment = AttachmentDecorator.new(attachment)
+%li[attachment]
+  = attachment.user.email
+  attached a file
+  = attachment.link_to_filename
+  = attachment.created_at

@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219162801) do
+ActiveRecord::Schema.define(:version => 20130304193105) do
+
+  create_table "attachments", :force => true do |t|
+    t.integer  "attachable_id",     :null => false
+    t.string   "attachable_type",   :null => false
+    t.integer  "user_id",           :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
+  add_index "attachments", ["user_id"], :name => "index_attachments_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.text     "body",             :null => false
