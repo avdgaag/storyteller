@@ -3,6 +3,7 @@ class StoryDecorator < ApplicationDecorator
   decorates_association :comments
   decorates_association :epic
   decorates_association :project
+  decorates_association :attachments
 
   def completed_at
     if source.completed_at.nil?

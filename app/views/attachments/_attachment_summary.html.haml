@@ -1,0 +1,3 @@
+%li[attachment, :summary]
+  = attachment.link_to_filename
+  = button_to 'Remove', [attachment.attachable.project, attachment.attachable, attachment], method: :delete

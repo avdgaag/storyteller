@@ -1,5 +1,4 @@
 Storyteller::Application.routes.draw do
-
   resources :projects do
     resources :epics do
       resources :stories, only: [:new, :create]
@@ -12,6 +11,7 @@ Storyteller::Application.routes.draw do
       post 'revertions/:version' => 'revertions#create',  as: 'revertion'
       resources :comments
       resources :requirements
+      resources :attachments
     end
   end
 

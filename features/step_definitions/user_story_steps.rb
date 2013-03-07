@@ -1,4 +1,4 @@
-Given /^a (|completed|incomplete) ?user story titled "(.*?)"$/ do |trait, title|
+Given /^an? (|completed|incomplete|attached) ?user story titled "(.*?)"$/ do |trait, title|
   if trait.blank?
     FactoryGirl.create :story, title: title, project: @current_project
   else

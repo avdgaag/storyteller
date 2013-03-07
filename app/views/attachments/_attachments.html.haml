@@ -1,0 +1,5 @@
+%h2 Attachments
+%ul
+  = render partial: 'attachments/attachment_summary', collection: attachable.attachments, as: :attachment
+= render partial: 'attachments/form', locals: { attachable: attachable }
+

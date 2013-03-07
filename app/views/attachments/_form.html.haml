@@ -1,0 +1,5 @@
+= simple_form_for [attachable.project, attachable, (flash[:attachment] || attachable.attachments.build)] do |f|
+  .inputs
+    = f.input :file, as: :file
+  .actions
+    = f.submit 'Add file', class: 'button radius'
