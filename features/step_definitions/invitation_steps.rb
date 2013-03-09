@@ -7,6 +7,10 @@ When /^I invite user "(.*?)"$/ do |email|
   click_button 'Send Invitation'
 end
 
-Then /^I should see (-?\d+) collaborators$/ do |n|
+Then /^I should see (-?\d+) collaborators?$/ do |n|
   expect(page).to have_css('.collaboration', count: n)
+end
+
+Then /^I should see (-?\d+) invitations?$/ do |n|
+  expect(page).to have_css('.invitation', count: n)
 end

@@ -8,13 +8,22 @@ class CollaborationsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email! params[:email]
-    @collaboration = current_project.collaborations.build
-    @collaboration.user = @user
-    if @collaboration.save
-      flash[:notice] = 'Collaboration created'
+    @user = User.find_by_email params[:email]
+    if @user
+      @collaboration = current_project.collaborations.build
+      @collaboration.user = @user
+      if @collaboration.save
+        flash[:notice] = 'Collaboration created'
+      else
+        flash[:collaboration] = @collaboration
+      end
     else
-      flash[:collaboration] = @collaboration
+      @invitation = current_project.invitations.build email: params[:email]
+      if @invitation.save
+        flash[:notice] = 'Invitation sent'
+      else
+        flash[:invitation] = @invitation
+      end
     end
     redirect_to project_collaborations_path(current_project)
   end

@@ -18,4 +18,9 @@ Feature: Invite user to a project
     And I should see "baz@qux.com"
 
   Scenario: Invite new user
-
+    When I go to the project collaborators page
+    And I invite user "baz@qux.com"
+    Then I should see a flash notice
+    And I should see 1 collaborator
+    And I should see 1 invitation
+    And I should see "baz@qux.com"

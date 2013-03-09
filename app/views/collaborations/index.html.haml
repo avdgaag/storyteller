@@ -8,7 +8,13 @@
   .actions
     = submit_tag 'Send Invitation'
 
+%h2 Collaborators
 %ul.collaborators
   %li.collaboration= current_project.owner.email
   - collaborations.each do |collaboration|
     %li[collaboration]= collaboration.user.email
+
+%h2 Pending invitations
+%ul.invitations
+  - current_project.invitations.each do |invitation|
+    %li[invitation]= invitation.email

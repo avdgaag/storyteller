@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130309161009) do
+ActiveRecord::Schema.define(:version => 20130309172915) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "attachable_id",     :null => false
@@ -62,6 +62,17 @@ ActiveRecord::Schema.define(:version => 20130309161009) do
 
   add_index "epics", ["author_id"], :name => "index_epics_on_author_id"
   add_index "epics", ["project_id"], :name => "index_epics_on_project_id"
+
+  create_table "invitations", :force => true do |t|
+    t.string   "email",      :null => false
+    t.string   "token",      :null => false
+    t.integer  "project_id", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "invitations", ["project_id"], :name => "index_invitations_on_project_id"
+  add_index "invitations", ["token"], :name => "index_invitations_on_token"
 
   create_table "projects", :force => true do |t|
     t.string   "title"

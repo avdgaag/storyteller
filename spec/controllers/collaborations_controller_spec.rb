@@ -15,7 +15,7 @@ describe CollaborationsController do
     end
 
     context 'response' do
-      before { get :index, project_id: '9' }
+      before { get :index, project_id: project.id }
       it { should render_template('index') }
       it { should respond_with(:success) }
       it { should_not set_the_flash }
@@ -31,26 +31,54 @@ describe CollaborationsController do
     end
 
     context 'response' do
-      let(:collaboration) { double(save: true, :user= => true) }
 
-      before do
-        User.should_receive(:find_by_email!).with('foo').and_return(build_stubbed(:user))
-        project.stub_chain(:collaborations, :build).and_return(collaboration)
-        post :create, email: 'foo', project_id: project.id
+      context 'when the user does not exist' do
+        let(:invitation) { double(save: true) }
+
+        before do
+          User.should_receive(:find_by_email).with('foo').and_return(nil)
+          project.stub_chain(:invitations, :build).and_return(invitation)
+          post :create, email: 'foo', project_id: project.id
+        end
+
+        it { should respond_with(:redirect) }
+        it { should redirect_to("/projects/#{project.id}/collaborations") }
+
+        context 'when validation succeeds' do
+          it { should set_the_flash.to('Invitation sent') }
+        end
+
+        context 'when validation fails' do
+          let(:invitation) { double(save: false) }
+
+          it 'flashes the collaborations' do
+            expect(flash[:invitation]).to be(invitation)
+          end
+        end
       end
 
-      it { should respond_with(:redirect) }
-      it { should redirect_to("/projects/#{project.id}/collaborations") }
+      context 'when the user exists' do
+        let(:collaboration) { double(save: true, :user= => true) }
 
-      context 'when validation succeeds' do
-        it { should set_the_flash.to('Collaboration created') }
-      end
+        before do
+          User.should_receive(:find_by_email).with('foo').and_return(build_stubbed(:user))
+          project.stub_chain(:collaborations, :build).and_return(collaboration)
+          post :create, email: 'foo', project_id: project.id
+        end
 
-      context 'when validation fails' do
-        let(:collaboration) { double(save: false, :user= => true) }
+        it { should respond_with(:redirect) }
+        it { should redirect_to("/projects/#{project.id}/collaborations") }
 
-        it 'flashes the collaborations' do
-          expect(flash[:collaboration]).to be(collaboration)
+        context 'when validation succeeds' do
+          it { should set_the_flash.to('Collaboration created') }
+        end
+
+        context 'when validation fails' do
+          let(:collaboration) { double(save: false, :user= => true) }
+
+          it 'flashes the collaborations' do
+            expect(flash[:collaboration]).to be(collaboration)
+          end
         end
       end
     end
