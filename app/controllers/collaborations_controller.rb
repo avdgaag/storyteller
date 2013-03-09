@@ -20,6 +20,7 @@ class CollaborationsController < ApplicationController
     else
       @invitation = current_project.invitations.build email: params[:email]
       if @invitation.save
+        Notifications.invitation(@invitation).deliver
         flash[:notice] = 'Invitation sent'
       else
         flash[:invitation] = @invitation

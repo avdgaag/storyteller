@@ -36,6 +36,7 @@ describe CollaborationsController do
         let(:invitation) { double(save: true) }
 
         before do
+          ActionMailer::Base.deliveries = []
           User.should_receive(:find_by_email).with('foo').and_return(nil)
           project.stub_chain(:invitations, :build).and_return(invitation)
           post :create, email: 'foo', project_id: project.id
@@ -46,6 +47,10 @@ describe CollaborationsController do
 
         context 'when validation succeeds' do
           it { should set_the_flash.to('Invitation sent') }
+
+          it 'sends an email to the user' do
+            expect(ActionMailer::Base).to have(1).deliveries
+          end
         end
 
         context 'when validation fails' do

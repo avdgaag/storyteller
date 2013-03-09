@@ -24,3 +24,4 @@ Feature: Invite user to a project
     And I should see 1 collaborator
     And I should see 1 invitation
     And I should see "baz@qux.com"
+    And "baz@qux.com" should receive an email with subject "Join me on My Project at Storyteller"
