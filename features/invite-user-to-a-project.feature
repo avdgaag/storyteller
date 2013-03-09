@@ -3,6 +3,18 @@ Feature: Invite user to a project
   I want to invite a user to a project
   So he can join me in writing user stories
 
+  Background:
+    Given I have an account with "foo@bar.com"
+    And I am signed in
+    And I have a project titled "My Project"
+    And I have activated project "My Project"
+
   Scenario: Invite existing user
+    Given a user "baz@qux.com"
+    When I go to the project collaborators page
+    And I invite user "baz@qux.com"
+    Then I should see a flash notice
+    And I should see 2 collaborators
+
   Scenario: Invite new user
 

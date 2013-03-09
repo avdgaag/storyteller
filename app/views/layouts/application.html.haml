@@ -22,6 +22,7 @@
               - if current_project
                 %li= link_to 'Stories', project_stories_path(current_project)
                 %li= link_to 'Epics', project_epics_path(current_project)
+                %li= link_to 'People', project_collaborations_path(current_project)
             %ul.right
               %li.has-dropdown
                 - if current_project
