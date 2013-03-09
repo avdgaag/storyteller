@@ -1,0 +1,14 @@
+%h1 Collaborations#index
+%p Find me in app/views/collaborations/index.html.haml
+
+= form_tag url: [current_project, collaboration], method: :post do
+  .inputs
+    = label_tag :email
+    = email_field_tag :email
+  .actions
+    = submit_tag 'Send Invitation'
+
+%ul.collaborators
+  %li.collaboration= current_project.owner.email
+  - collaborations.each do |collaboration|
+    %li[collaboration]= collaboration.user.email

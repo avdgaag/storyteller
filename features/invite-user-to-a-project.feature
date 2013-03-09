@@ -15,6 +15,7 @@ Feature: Invite user to a project
     And I invite user "baz@qux.com"
     Then I should see a flash notice
     And I should see 2 collaborators
+    And I should see "baz@qux.com"
 
   Scenario: Invite new user
 
