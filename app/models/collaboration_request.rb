@@ -1,8 +1,11 @@
 class CollaborationRequest
-  attr_reader :project, :email
+  attr_accessor :project, :email
 
   extend ActiveModel::Naming
   include ActiveModel::Conversion
+  include ActiveModel::Validations
+
+  validates :email, format: /@.*\./
 
   def initialize(project, email = nil)
     @project, @email = project, email
@@ -13,6 +16,7 @@ class CollaborationRequest
   end
 
   def save
+    return false unless valid?
     if not invitation?
       collaboration.user = user
       collaboration.save

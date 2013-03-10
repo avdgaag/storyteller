@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CollaborationRequest do
   let!(:project) { create :project }
-  let(:email)    { 'foo' }
+  let(:email)    { 'foo@bar.com' }
   subject        { described_class.new project, email }
 
   describe 'ActiveModel compliance' do
@@ -11,6 +11,11 @@ describe CollaborationRequest do
   end
 
   it { should_not be_persisted }
+
+  context 'validations' do
+    it { should allow_value('foo@bar.com').for(:email) }
+    it { should_not allow_value('bla').for(:email) }
+  end
 
   context 'without a user' do
     it { should be_invitation }
@@ -28,7 +33,7 @@ describe CollaborationRequest do
     let(:user)  { build_stubbed :user }
 
     before do
-      User.should_receive(:find_by_email).with('foo').and_return(user)
+      User.should_receive(:find_by_email).with('foo@bar.com').and_return(user)
     end
 
     it { should_not be_invitation }

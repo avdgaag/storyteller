@@ -5,7 +5,7 @@
   %fieldset
     %legend Add collaborator
     .row.collapse
-      = f.input :email, input_html: { class: 'ten columns' }
+      = f.input :email, label: false, wrapper_html: { class: 'ten columns' }
       .two.columns
         = f.submit 'Send Invitation', class: 'button expand postfix'
 
