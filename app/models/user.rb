@@ -14,4 +14,10 @@ class User < ActiveRecord::Base
   has_many :stories_waiting, class_name: 'Story', foreign_key: 'owner_id'
   has_many :epics,    foreign_key: 'author_id'
   has_many :projects, foreign_key: 'owner_id'
+  has_many :collaborations, dependent: :destroy
+  has_many :collaborating_projects, through: :collaborations, source: :project
+
+  def involved_projects
+    projects + collaborating_projects
+  end
 end

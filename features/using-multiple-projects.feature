@@ -52,3 +52,12 @@ Feature: Using multiple projects
     Then I should see 0 user stories
     When I activate project "My first project"
     Then I should see 1 user stories
+
+  Scenario: Listing all collaborating projects
+    Given I have a project titled "Foo"
+    And a user "baz@qux.com"
+    And user "baz@qux.com" has a project "Bar"
+    And I collaborate on project "Bar"
+    When I go to the projects page
+    Then I should see "Foo"
+    And I should see "Bar"

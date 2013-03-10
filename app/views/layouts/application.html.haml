@@ -22,17 +22,19 @@
               - if current_project
                 %li= link_to 'Stories', project_stories_path(current_project)
                 %li= link_to 'Epics', project_epics_path(current_project)
+                %li= link_to 'People', project_collaborations_path(current_project)
             %ul.right
               %li.has-dropdown
                 - if current_project
                   = link_to current_project.title, current_project
                 - else
                   %a{ href: '#' } Pick a project
-                %ul.dropdown
-                  - Project.find_each do |project|
-                    %li= link_to project.title, project_stories_path(project)
-                  %li.divider
-                  %li= link_to 'Create project', new_project_path
+                - if current_user
+                  %ul.dropdown
+                    - current_user.involved_projects.each do |project|
+                      %li= link_to project.title, project_stories_path(project)
+                    %li.divider
+                    %li= link_to 'Create project', new_project_path
               - if user_signed_in?
                 %li.has-dropdown
                   = link_to current_user.email, edit_user_registration_path

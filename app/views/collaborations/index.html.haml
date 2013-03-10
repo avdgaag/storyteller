@@ -1,0 +1,33 @@
+%h1 Collaboraters on #{current_project.title}
+%p Collaborators are team members and stakeholders that can write, edit and discuss user stories and epis in your project.
+
+= simple_form_for [current_project, collaboration_request] do |f|
+  %fieldset
+    %legend Add collaborator
+    .row.collapse
+      = f.input :email, label: false, wrapper_html: { class: 'ten columns' }
+      .two.columns
+        = f.submit 'Send Invitation', class: 'button expand postfix'
+
+.row
+  .six.columns
+    %h2.subheader Collaborators
+    %ul.collaborators
+      %li.collaboration
+        = current_project.owner.email
+        (project owner)
+      - collaborations.each do |collaboration|
+        %li[collaboration]
+          = collaboration.user.email
+          added
+          = time_ago_in_words collaboration.created_at
+          ago
+  .six.columns
+    %h2.subheader Pending invitations
+    %ul.invitations
+      - current_project.invitations.each do |invitation|
+        %li[invitation]
+          = invitation.email
+          invited
+          = time_ago_in_words invitation.created_at
+          ago
