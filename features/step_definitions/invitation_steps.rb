@@ -3,7 +3,7 @@ When /^I go to the project collaborators page$/ do
 end
 
 When /^I invite user "(.*?)"$/ do |email|
-  fill_in 'email', with: email
+  fill_in 'collaboration_request_email', with: email
   click_button 'Send Invitation'
 end
 

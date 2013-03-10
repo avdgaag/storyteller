@@ -20,70 +20,36 @@ describe CollaborationsController do
       it { should respond_with(:success) }
       it { should_not set_the_flash }
       it { should assign_to(:collaborations) }
-      it { should assign_to(:collaboration) }
+      it { should assign_to(:collaboration_request) }
     end
   end
 
   describe "POST 'create'" do
 
     context 'routing' do
-      it { expect(post: '/projects/9/collaborations').to route_to('collaborations#create', project_id: '9') }
+      it { expect(post: '/projects/9/collaboration_requests').to route_to('collaborations#create', project_id: '9') }
     end
 
     context 'response' do
+      let(:collaboration_request) { double(save: true, invitation?: true) }
 
-      context 'when the user does not exist' do
-        let(:invitation) { double(save: true) }
-
-        before do
-          ActionMailer::Base.deliveries = []
-          User.should_receive(:find_by_email).with('foo').and_return(nil)
-          project.stub_chain(:invitations, :build).and_return(invitation)
-          post :create, email: 'foo', project_id: project.id
-        end
-
-        it { should respond_with(:redirect) }
-        it { should redirect_to("/projects/#{project.id}/collaborations") }
-
-        context 'when validation succeeds' do
-          it { should set_the_flash.to('Invitation sent') }
-
-          it 'sends an email to the user' do
-            expect(ActionMailer::Base).to have(1).deliveries
-          end
-        end
-
-        context 'when validation fails' do
-          let(:invitation) { double(save: false) }
-
-          it 'flashes the collaborations' do
-            expect(flash[:invitation]).to be(invitation)
-          end
-        end
+      before do
+        CollaborationRequest.should_receive(:new).with(project, 'foo').and_return(collaboration_request)
+        post :create, collaboration_request: { email: 'foo' }, project_id: project.id
       end
 
-      context 'when the user exists' do
-        let(:collaboration) { double(save: true, :user= => true) }
+      it { should respond_with(:redirect) }
+      it { should redirect_to("/projects/#{project.id}/collaborations") }
 
-        before do
-          User.should_receive(:find_by_email).with('foo').and_return(build_stubbed(:user))
-          project.stub_chain(:collaborations, :build).and_return(collaboration)
-          post :create, email: 'foo', project_id: project.id
-        end
+      context 'when validation succeeds' do
+        it { should set_the_flash.to('Invitation sent') }
+      end
 
-        it { should respond_with(:redirect) }
-        it { should redirect_to("/projects/#{project.id}/collaborations") }
+      context 'when validation fails' do
+        let(:collaboration_request) { double(save: false) }
 
-        context 'when validation succeeds' do
-          it { should set_the_flash.to('Collaboration created') }
-        end
-
-        context 'when validation fails' do
-          let(:collaboration) { double(save: false, :user= => true) }
-
-          it 'flashes the collaborations' do
-            expect(flash[:collaboration]).to be(collaboration)
-          end
+        it 'flashes the collaborations' do
+          expect(flash[:collaboration_request]).to be(collaboration_request)
         end
       end
     end
