@@ -30,6 +30,10 @@ end
 When /^I create an account with "(.*?)" and "(.*?)"$/ do |email, password|
   visit '/'
   click_link 'Sign up'
+  step %Q{I enter "#{email}" and "#{password}" as new account details}
+end
+
+When /^I enter "(.*?)" and "(.*?)" as new account details$/ do |email, password|
   fill_in 'user_email', with: email
   fill_in 'user_password', with: password
   fill_in 'user_password_confirmation', with: password
@@ -42,6 +46,10 @@ end
 
 When /^I sign in with "(.*?)" and "(.*?)"$/ do |email, password|
   visit '/account/sign_in'
+  step %Q{I enter "#{email}" and "#{password}" as credentials}
+end
+
+When /^I enter "(.*?)" and "(.*?)" as credentials$/ do |email, password|
   fill_in 'user_email', with: email
   fill_in 'user_password', with: password
   click_button 'Sign in'

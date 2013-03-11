@@ -1,3 +1,8 @@
+Given /^I am invited on "(.*?)" to collaborate on (project ".*?")$/ do |email, project|
+  invitation = FactoryGirl.create :invitation, email: email, project: project
+  Notifications.invitation(invitation).deliver
+end
+
 When /^I go to the project collaborators page$/ do
   click_link 'People'
 end

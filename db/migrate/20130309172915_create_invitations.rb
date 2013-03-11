@@ -7,6 +7,6 @@ class CreateInvitations < ActiveRecord::Migration
       t.timestamps
     end
     add_index :invitations, :project_id
-    add_index :invitations, :token
+    add_index :invitations, :token, unique: true
   end
 end

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Notifications do
   describe "invitation" do
     let(:project)    { build_stubbed :project, title: 'My Project' }
-    let(:invitation) { build_stubbed :invitation, project: project, email: 'to@example.org' }
+    let(:invitation) { build_stubbed :invitation, project: project, email: 'to@example.org', token: 'foo' }
     let(:mail)       { Notifications.invitation(invitation) }
 
     it 'renders the headers' do

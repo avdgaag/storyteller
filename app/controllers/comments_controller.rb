@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_project_involvement
 
   def create
     @comment = commentable.comments.build params[:comment]

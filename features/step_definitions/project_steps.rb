@@ -30,9 +30,12 @@ When /^I create a new project "(.*?)"$/ do |title|
   click_link 'Create project'
   fill_in 'Title', with: title
   click_button 'Create Project'
+  puts page.html
 end
 
 When /^I activate (project ".*?")$/ do |project|
   visit '/'
-  click_link project.title
+  within '.top-bar' do
+    first(:link, project.title).click
+  end
 end

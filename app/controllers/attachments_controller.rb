@@ -1,5 +1,6 @@
 class AttachmentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_project_involvement
 
   def create
     @attachment = attachable.attachments.build params[:attachment]

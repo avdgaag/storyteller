@@ -6,4 +6,9 @@ class Project < ActiveRecord::Base
   has_many :collaborations, dependent: :destroy
   has_many :invitations, dependent: :destroy
   validates :title, :owner, presence: :true
+
+  scope :for_user, ->(id) do
+    joins('left join collaborations on project_id = projects.id').
+      where('owner_id = :id or collaborations.user_id = :id', id: id)
+  end
 end

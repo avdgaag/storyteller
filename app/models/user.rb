@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
   has_many :collaborating_projects, through: :collaborations, source: :project
 
   def involved_projects
-    projects + collaborating_projects
+    Project.for_user(id)
+  end
+
+  def involved_in?(project)
+    project.owner == self || collaborating_projects.include?(project)
   end
 end
