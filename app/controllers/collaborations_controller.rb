@@ -1,5 +1,6 @@
 class CollaborationsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_project_involvement
   expose :collaboration
   expose :collaboration_request
 

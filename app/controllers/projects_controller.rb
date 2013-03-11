@@ -7,7 +7,8 @@ class ProjectsController < ApplicationController
 
   def last_active
     if cookies['last_active_project_id']
-      redirect_to [Project.find(cookies['last_active_project_id']), :stories]
+      flash.keep
+      redirect_to [involved_projects.find(cookies['last_active_project_id']), :stories]
     else
       @projects = Project.scoped.decorate
       render action: 'index'
@@ -15,34 +16,34 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.scoped.decorate
+    @projects = involved_projects.decorate
     respond_with @projects
   end
 
   def show
-    @project = Project.find(params[:id]).decorate
+    @project = involved_projects.find(params[:id]).decorate
     respond_with @project
   end
 
   def edit
-    @project = Project.find(params[:id])
+    @project = involved_projects.find(params[:id])
     respond_with @project
   end
 
   def new
-    @project = Project.new
+    @project = current_user.projects.build
     respond_with @project
   end
 
   def create
-    @project = Project.new(params[:project])
+    @project = current_user.projects.build(params[:project])
     @project.owner = current_user
     flash[:notice] = 'Project created' if @project.save
     respond_with @project
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = involved_projects.find(params[:id])
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Project updated'
     end
@@ -50,7 +51,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
+    @project = involved_projects.find(params[:id])
     flash[:notice] = 'Project destroyed' if @project.destroy
     respond_with @project
   end

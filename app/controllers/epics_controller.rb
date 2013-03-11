@@ -1,5 +1,6 @@
 class EpicsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_project_involvement
 
   expose :epic
   respond_to :html, :json, :xml, :txt, :pdf

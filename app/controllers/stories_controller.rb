@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_project_involvement
   before_filter :find_epic
 
   expose :story

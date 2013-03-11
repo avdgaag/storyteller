@@ -1,6 +1,7 @@
 class RequirementsController < ApplicationController
-  before_filter :find_story
   before_filter :authenticate_user!
+  before_filter :require_project_involvement
+  before_filter :find_story
 
   def create
     @requirement = @story.pending_requirements.build(params[:requirement])
