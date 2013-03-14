@@ -44,6 +44,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = involved_projects.find(params[:id])
+    Rails.logger.debug { @project.inspect }
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Project updated'
     end

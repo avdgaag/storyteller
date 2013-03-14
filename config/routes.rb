@@ -16,6 +16,7 @@ Storyteller::Application.routes.draw do
       resources :comments
       resources :requirements
       resources :attachments
+      resources :exports
     end
   end
 

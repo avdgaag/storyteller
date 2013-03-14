@@ -12,26 +12,26 @@ Feature: External integration
 
   Scenario: Export a story to Pivotal Tracker
     When I add the following API credentials to project "My Project":
-      | token      | correct |
-      | project_id | 12345   |
+      | Token    | correct |
+      | External | 12345   |
     And I go to user story "Foo bar"
-    And I click "Export to Pivotal Tracker"
+    And I export to Pivotal Tracker
     Then I should see a flash notice
-    And I should see "User story 456 created in Pivotal Tracker"
+    And I should see "created in Pivotal Tracker"
 
   Scenario: Exporting fails
     When I add the following API credentials to project "My Project":
-      | token      | badkey |
-      | project_id | 12345  |
+      | Token    | badkey |
+      | External | 12345  |
     And I go to user story "Foo bar"
-    And I click "Export to Pivotal Tracker"
+    And I export to Pivotal Tracker
     Then I should see a flash alert
     And I should see "Please try again later"
 
   Scenario: Setting Pivotal Tracker credentials
     When I add the following API credentials to project "My Project":
-      | token      | foobar |
-      | project_id | 12345  |
+      | Token    | foobar |
+      | External | 12345  |
     Then I should see a flash notice
 
   Scenario: No Pivotal Tracker credentials known

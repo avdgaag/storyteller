@@ -75,12 +75,11 @@ gem "haml"
 gem "haml-rails"
 gem "draper"
 gem "kaminari"
-# gem "simple-navigation"
 gem "simple_form"
 gem "thin"
-# gem "cancan"
 gem 'vestal_versions', github: 'laserlemon/vestal_versions', branch: 'rails_3'
 gem 'diff-lcs'
 gem 'pg_search'
 gem 'rdiscount'
 gem 'paperclip'
+gem 'pivotal-tracker'

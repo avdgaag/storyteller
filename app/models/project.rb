@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :description, :owner_id, :title
+  attr_accessible :description, :owner_id, :title, :token, :external_id
   belongs_to :owner, class_name: 'User'
   has_many :stories, dependent: :destroy
   has_many :epics, dependent: :destroy
@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
 
   scope :for_user, ->(id) do
     joins('left join collaborations on project_id = projects.id').
-      where('owner_id = :id or collaborations.user_id = :id', id: id)
+      where('owner_id = :id or collaborations.user_id = :id', id: id).
+      readonly false
   end
 end
