@@ -2,8 +2,8 @@ When /^I go to the home page$/ do
   visit '/'
 end
 
-When /^I click "(.*?)"$/ do |link|
-  click_link link
+When /^I click "(.*?)"$/ do |link_or_button|
+  click_on link_or_button
 end
 
 Then /^I should not see "(.*?)"$/ do |text|

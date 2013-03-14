@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'cucumber/rspec/doubles'
 require 'email_spec/cucumber'
 World(JsonSpec::Matchers)
 

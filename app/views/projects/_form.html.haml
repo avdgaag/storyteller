@@ -3,5 +3,9 @@
     %legend Content
     = f.input :title
     = f.input :description
+  %fieldset
+    %legend API integration
+    = f.input :token
+    = f.input :external_id
   .actions
     = f.submit class: 'button radius'
